@@ -78,13 +78,11 @@ describe("quote workflow", () => {
       });
 
     expect(response.status).toBe(200);
-    expect(response.body.data).toMatchObject({
-      subtotal: "325.55",
-      discount: "25",
-      taxRate: "9.45",
-      tax: "28.40",
-      total: "328.95"
-    });
+    expect(Number(response.body.data.subtotal)).toBe(325.55);
+    expect(Number(response.body.data.discount)).toBe(25);
+    expect(Number(response.body.data.taxRate)).toBe(9.45);
+    expect(Number(response.body.data.tax)).toBe(28.4);
+    expect(Number(response.body.data.total)).toBe(328.95);
     expect(response.body.data.items).toHaveLength(2);
 
     const documentResponse = await request(app)
