@@ -1,12 +1,24 @@
-import type { JobRecord, JobStatus } from "../../shared/types/job";
+import { useEffect, useState } from "react";
+
+import type { JobPriority, JobRecord, JobStatus } from "../../shared/types/job";
 
 interface JobDetailProps {
   job?: JobRecord;
   onStatusChange: (status: JobStatus) => void;
-  onToggleChecklist: (itemId: string) => void;
+  onUpdate: (patch: { priority?: JobPriority; value?: number; crewNotes?: string | null }) => void;
 }
 
-function JobDetail({ job, onStatusChange, onToggleChecklist }: JobDetailProps) {
+function JobDetail({ job, onStatusChange, onUpdate }: JobDetailProps) {
+  const [draftPriority, setDraftPriority] = useState<JobPriority>("normal");
+  const [draftValue, setDraftValue] = useState(0);
+  const [draftNotes, setDraftNotes] = useState("");
+
+  useEffect(() => {
+    setDraftPriority(job?.priority ?? "normal");
+    setDraftValue(job?.estimatedValue ?? 0);
+    setDraftNotes(job?.notes ?? "");
+  }, [job?.id, job?.priority, job?.estimatedValue, job?.notes]);
+
   if (!job) {
     return (
       <aside className="job-detail job-detail--empty">
@@ -50,6 +62,14 @@ function JobDetail({ job, onStatusChange, onToggleChecklist }: JobDetailProps) {
         <div><dt>Value</dt><dd>${job.estimatedValue.toLocaleString()}</dd></div>
       </dl>
 
+      <section className="job-detail__section job-detail__editor">
+        <h3>Job details</h3>
+        <label><span>Priority</span><select value={draftPriority} onChange={(event) => setDraftPriority(event.target.value as JobPriority)}>{(["low", "normal", "high", "urgent"] as JobPriority[]).map((priority) => <option key={priority}>{priority}</option>)}</select></label>
+        <label><span>Value</span><input min="0" step="0.01" type="number" value={draftValue} onChange={(event) => setDraftValue(Number(event.target.value))} /></label>
+        <label><span>Crew notes</span><textarea rows={4} value={draftNotes} onChange={(event) => setDraftNotes(event.target.value)} /></label>
+        <button type="button" onClick={() => onUpdate({ priority: draftPriority, value: draftValue, crewNotes: draftNotes || null })}>Save job details</button>
+      </section>
+
       <section className="job-detail__section">
         <h3>Description</h3>
         <p>{job.description}</p>
@@ -63,22 +83,6 @@ function JobDetail({ job, onStatusChange, onToggleChecklist }: JobDetailProps) {
       <section className="job-detail__section">
         <h3>Equipment</h3>
         <p>{job.equipment.length ? job.equipment.join(", ") : "No equipment assigned"}</p>
-      </section>
-
-      <section className="job-detail__section">
-        <h3>Completion checklist</h3>
-        <div className="job-checklist">
-          {job.checklist.map((item) => (
-            <label key={item.id}>
-              <input
-                type="checkbox"
-                checked={item.completed}
-                onChange={() => onToggleChecklist(item.id)}
-              />
-              <span>{item.label}</span>
-            </label>
-          ))}
-        </div>
       </section>
 
       {job.notes ? (

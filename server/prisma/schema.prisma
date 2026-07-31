@@ -121,6 +121,7 @@ model Quote {
   description String?
   subtotal    Decimal      @default(0) @db.Decimal(12, 2)
   discount    Decimal      @default(0) @db.Decimal(12, 2)
+  taxRate     Decimal      @default(0) @db.Decimal(5, 2)
   tax         Decimal      @default(0) @db.Decimal(12, 2)
   total       Decimal      @default(0) @db.Decimal(12, 2)
   expiresAt   DateTime?
@@ -192,6 +193,11 @@ model Job {
   crewNotes        String?
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
+
+  @@index([status, createdAt])
+  @@index([customerId, createdAt])
+  @@index([quoteId])
+  @@index([serviceRequestId])
 }
 
 model Expense {

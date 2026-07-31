@@ -27,3 +27,8 @@
 .service-request-detail > button { border: 0; border-radius: 0.55rem; background: #1d4ed8; color: #fff; padding: 0.75rem 1rem; font-weight: 700; }
 @media (max-width: 900px) { .service-requests-layout { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .service-request-filters { grid-template-columns: 1fr; } }
+.service-request-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}

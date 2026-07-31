@@ -96,18 +96,18 @@ This milestone makes submitted leads usable by the landscaping team.
 
 ## Milestone 2 — Quotes, estimates, and job conversion
 
-**Status: Next**
+**Status: Complete**
 
 ### Scope
 
-- [ ] Create and edit quote line items
-- [ ] Calculate subtotal, discount, tax, and total on the server
-- [ ] Add quote expiration and approval workflows
-- [ ] Generate customer-facing quote documents
-- [ ] Convert approved quotes or service requests into jobs
-- [ ] Generate collision-resistant human-readable job numbers
-- [ ] Track job priority, notes, value, and lifecycle status
-- [ ] Add quote and job history to customer records
+- [x] Create and edit quote line items
+- [x] Calculate subtotal, discount, tax, and total on the server
+- [x] Add quote expiration and approval workflows
+- [x] Generate customer-facing quote documents
+- [x] Convert approved quotes or service requests into jobs
+- [x] Generate collision-resistant human-readable job numbers
+- [x] Track job priority, notes, value, and lifecycle status
+- [x] Add quote and job history to customer records
 
 ### Exit criteria
 
@@ -238,12 +238,12 @@ Every milestone should include:
 
 ## Immediate execution order
 
-1. Push the migration and integration-test foundation and confirm Backend CI passes.
-2. Provision PostgreSQL and deploy the API to Render.
-3. Provision PostgreSQL and deploy the API when the Render workspace is restored.
+1. Restore the Render workspace and billing access.
+2. Provision development and production PostgreSQL databases.
+3. Deploy the API, apply checked-in migrations, and verify `/health` and `/ready`.
 4. Configure the production frontend API URL and allowed origin.
-5. Begin quote line items, server-side totals, and job conversion.
-6. Add customer-facing quote approval after the quote workflow is stable.
+5. Confirm the Phase 2 PostgreSQL integration suite in Backend CI.
+6. Begin schedule events, crew assignment, and conflict detection.
 
 ## Deliberately deferred decisions
 

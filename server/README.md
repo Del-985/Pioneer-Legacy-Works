@@ -50,13 +50,22 @@ The backend CI workflow provisions PostgreSQL and performs these steps automatic
 - `GET /api/admin/quotes`
 - `GET /api/admin/quotes/:id`
 - `PATCH /api/admin/quotes/:id`
+- `PUT /api/admin/quotes/:id/details`
+- `POST /api/admin/quotes/:id/convert-to-job`
+- `GET /api/admin/quotes/:id/document`
 - `GET /api/admin/service-requests`
 - `GET /api/admin/service-requests/:id`
 - `PATCH /api/admin/service-requests/:id`
+- `POST /api/admin/service-requests/:id/convert-to-job`
+- `GET /api/admin/jobs`
+- `GET /api/admin/jobs/:id`
+- `PATCH /api/admin/jobs/:id`
 
 All `/api/admin` routes require a valid `ADMIN` or `EMPLOYEE` bearer token.
 List endpoints support search, status filters, sorting, and page-based pagination.
-Quote and service-request workflow changes create audit events.
+Quote, service-request, and job workflow changes create audit events. Quote
+subtotal, discount, tax, and total values are calculated by the API from
+validated line-item input.
 
 ## Frontend configuration
 

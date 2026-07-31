@@ -81,6 +81,17 @@ describe("admin intake operations", () => {
     const employee = await createUser("EMPLOYEE", "employee@example.com");
     const { quoteId } = await seedIntake();
 
+    await request(app)
+      .put(`/api/admin/quotes/${quoteId}/details`)
+      .set("Authorization", `Bearer ${admin.token}`)
+      .send({
+        title: "Pressure Washing",
+        expiresAt: "2030-12-31",
+        discount: 0,
+        taxRate: 0,
+        items: [{ description: "Pressure washing service", quantity: 1, unitPrice: 250 }]
+      });
+
     const response = await request(app)
       .patch(`/api/admin/quotes/${quoteId}`)
       .set("Authorization", `Bearer ${admin.token}`)
@@ -88,7 +99,7 @@ describe("admin intake operations", () => {
 
     expect(response.status).toBe(200);
     expect(response.body.data).toMatchObject({ status: "SENT", assignedToId: employee.user.id, internalNotes: "Call before visiting." });
-    const audit = await prisma.auditEvent.findFirst({ where: { entityType: "Quote", entityId: quoteId } });
+    const audit = await prisma.auditEvent.findFirst({ where: { entityType: "Quote", entityId: quoteId, action: "quote.updated" } });
     expect(audit).toMatchObject({ actorId: admin.user.id, action: "quote.updated" });
   });
 

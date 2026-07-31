@@ -9,6 +9,11 @@ import {
   serviceRequestListSchema,
   serviceRequestUpdateSchema
 } from "../schemas/admin.js";
+import {
+  assertQuoteReadyForCustomer,
+  assertQuoteTransition,
+  expireStaleQuotes
+} from "../services/quote-workflow.service.js";
 
 function pagination(page: number, pageSize: number, total: number) {
   return {
@@ -37,13 +42,15 @@ const quoteInclude = {
   customer: true,
   property: true,
   assignedTo: { select: { id: true, firstName: true, lastName: true, email: true } },
-  items: { orderBy: { sortOrder: "asc" as const } }
+  items: { orderBy: { sortOrder: "asc" as const } },
+  jobs: { select: { id: true, number: true, status: true } }
 };
 
 const serviceRequestInclude = {
   customer: true,
   property: true,
-  assignedTo: { select: { id: true, firstName: true, lastName: true, email: true } }
+  assignedTo: { select: { id: true, firstName: true, lastName: true, email: true } },
+  jobs: { select: { id: true, number: true, status: true } }
 };
 
 async function validateAssignee(assignedToId: string | null | undefined) {
@@ -110,6 +117,7 @@ export async function getCustomer(request: Request, response: Response, next: Ne
 
 export async function listQuotes(request: Request, response: Response, next: NextFunction) {
   try {
+    await expireStaleQuotes(prisma);
     const query = quoteListSchema.parse(request.query);
     const where: Prisma.QuoteWhereInput = {
       status: query.status,
@@ -134,6 +142,7 @@ export async function listQuotes(request: Request, response: Response, next: Nex
 
 export async function getQuote(request: Request, response: Response, next: NextFunction) {
   try {
+    await expireStaleQuotes(prisma);
     const data = await prisma.quote.findUnique({ where: { id: recordId(request) }, include: quoteInclude });
     if (!data) { response.status(404).json({ message: "Quote not found." }); return; }
     response.json({ data });
@@ -144,10 +153,36 @@ export async function updateQuote(request: Request, response: Response, next: Ne
   try {
     const input = quoteUpdateSchema.parse(request.body);
     await validateAssignee(input.assignedToId);
-    const current = await prisma.quote.findUnique({ where: { id: recordId(request) }, select: { id: true, status: true, assignedToId: true, internalNotes: true } });
+    const current = await prisma.quote.findUnique({
+      where: { id: recordId(request) },
+      select: {
+        id: true,
+        status: true,
+        assignedToId: true,
+        internalNotes: true,
+        expiresAt: true,
+        total: true,
+        items: { select: { id: true } }
+      }
+    });
     if (!current) { response.status(404).json({ message: "Quote not found." }); return; }
+    if (input.status) {
+      assertQuoteTransition(current.status, input.status);
+      if (["SENT", "APPROVED"].includes(input.status)) assertQuoteReadyForCustomer(current);
+    }
     const data = await prisma.$transaction(async (transaction) => {
-      const updated = await transaction.quote.update({ where: { id: current.id }, data: input, include: quoteInclude });
+      const updated = await transaction.quote.update({
+        where: { id: current.id },
+        data: {
+          ...input,
+          approvedAt: input.status === "APPROVED"
+            ? new Date()
+            : input.status === "DRAFT"
+              ? null
+              : undefined
+        },
+        include: quoteInclude
+      });
       await transaction.auditEvent.create({ data: {
         actorId: request.auth!.sub,
         action: "quote.updated",

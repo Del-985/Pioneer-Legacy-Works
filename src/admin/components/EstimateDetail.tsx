@@ -8,6 +8,9 @@ interface EstimateDetailProps {
   estimate?: Estimate;
   onStatusChange: (status: EstimateStatus) => void;
   onEdit?: () => void;
+  onConvert?: () => void;
+  onDocument?: () => void;
+  convertedJobNumber?: string;
 }
 
 function formatCurrency(value: number) {
@@ -20,7 +23,10 @@ function formatCurrency(value: number) {
 function EstimateDetail({
   estimate,
   onStatusChange,
-  onEdit
+  onEdit,
+  onConvert,
+  onDocument,
+  convertedJobNumber
 }: EstimateDetailProps) {
   if (!estimate) {
     return (
@@ -104,17 +110,20 @@ function EstimateDetail({
 
       <div className="estimate-detail__actions">
         {onEdit ? <button type="button" onClick={onEdit}>Edit</button> : null}
-        <button type="button" onClick={() => onStatusChange("sent")}>
+        {onDocument ? <button type="button" onClick={onDocument}>Download</button> : null}
+        {estimate.status === "draft" ? <button type="button" onClick={() => onStatusChange("sent")}>
           Mark Sent
-        </button>
-        <button
+        </button> : null}
+        {["draft", "sent"].includes(estimate.status) ? <button
           className="estimate-detail__action--primary"
           type="button"
           onClick={() => onStatusChange("approved")}
         >
           Approve
-        </button>
+        </button> : null}
+        {onConvert ? <button className="estimate-detail__action--primary" type="button" onClick={onConvert}>Create Job</button> : null}
       </div>
+      {convertedJobNumber ? <p className="estimate-detail__job-link">Converted to {convertedJobNumber}</p> : null}
     </aside>
   );
 }

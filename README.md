@@ -177,7 +177,14 @@ GET  /api/admin/customers
 GET  /api/admin/quotes
 GET  /api/admin/service-requests
 PATCH /api/admin/quotes/:id
+PUT  /api/admin/quotes/:id/details
+POST /api/admin/quotes/:id/convert-to-job
+GET  /api/admin/quotes/:id/document
 PATCH /api/admin/service-requests/:id
+POST /api/admin/service-requests/:id/convert-to-job
+GET  /api/admin/jobs
+GET  /api/admin/jobs/:id
+PATCH /api/admin/jobs/:id
 ```
 
 ## Architectural Principles
