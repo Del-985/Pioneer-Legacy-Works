@@ -16,7 +16,7 @@ function Contact() {
       <div className="container">
         <div className="landscaping-page-heading">
           <p className="landscaping-eyebrow">Contact</p>
-          <h1>Talk with Pioneer Landscaping Services.</h1>
+          <h1>Talk with Pioneer Outdoor Services.</h1>
           <p>
             Use the contact form for general questions. For pricing or service scheduling,
             use the dedicated quote or service-request forms.
@@ -66,7 +66,7 @@ function Contact() {
 
             <label className="landscaping-form-consent">
               <input required type="checkbox" />
-              <span>I authorize Pioneer Landscaping Services to contact me regarding this message.</span>
+              <span>I authorize Pioneer Outdoor Services to contact me regarding this message.</span>
             </label>
 
             <div className="landscaping-form-actions">
