@@ -60,7 +60,7 @@ function AdminLogin() {
           <Link to={ROUTES.website.home} className="admin-login-branding__mark">
             P
           </Link>
-          <p className="admin-login-branding__eyebrow">Pioneer Management Group</p>
+          <p className="admin-login-branding__eyebrow">Pioneer Legacy Works</p>
           <h1>Administrative access.</h1>
           <p>
             Sign in to manage customers, estimates, jobs, expenses, forms,

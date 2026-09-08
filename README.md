@@ -1,6 +1,6 @@
-# Pioneer Enterprises
+# Pioneer Legacy Works
 
-Pioneer Enterprises is a unified web platform for the Pioneer family of businesses. The repository contains the public corporate website, self-contained division websites, a centralized administration panel, and the backend foundation for a company-wide ERP system.
+Pioneer Legacy Works is a unified web platform for the Pioneer family of businesses. The repository contains the public corporate website, self-contained division websites, a centralized administration panel, and the backend foundation for a company-wide ERP system.
 
 The architecture allows each division to maintain its own branding, services, pages, and operational tools while sharing common infrastructure, authentication, business data, and reusable interface components.
 
@@ -61,7 +61,7 @@ The project is being built as both a public-facing website and an internal busin
 ```text
 .
 ├── src/
-│   ├── website/              # Public Pioneer Enterprises website
+│   ├── website/              # Public Pioneer Legacy Works website
 │   ├── admin/                # Central administration panel
 │   ├── divisions/
 │   │   └── landscaping/      # Pioneer Landscaping division site
@@ -94,8 +94,8 @@ The frontend router combines the corporate website, division routes, and admin r
 Clone the repository:
 
 ```bash
-git clone https://github.com/Del-985/Pioneer-Enterpises.git
-cd Pioneer-Enterpises
+git clone https://github.com/Del-985/Pioneer-Legacy-Works.git
+cd Pioneer-Legacy-Works
 ```
 
 Install the frontend dependencies:
@@ -237,4 +237,4 @@ See [ROADMAP.md](ROADMAP.md) for the ordered delivery plan, milestone acceptance
 
 ## License
 
-This project is proprietary software owned by Pioneer Enterprises. All rights are reserved unless permission is granted in writing.
+This project is proprietary software owned by Pioneer Legacy Works. All rights are reserved unless permission is granted in writing.

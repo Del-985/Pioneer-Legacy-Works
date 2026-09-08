@@ -5,8 +5,8 @@ import type { AdminSettings } from "../../shared/types/settings";
 
 const initialSettings: AdminSettings = {
   organization: {
-    organizationName: "Pioneer Management Group",
-    supportEmail: "support@pioneerenterprises.com",
+    organizationName: "Pioneer Legacy Works",
+    supportEmail: "support@pioneerlegacyworks.com",
     supportPhone: "",
     timezone: "America/Chicago",
     dateFormat: "MM/DD/YYYY"

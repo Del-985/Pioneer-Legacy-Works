@@ -1,6 +1,6 @@
-# Pioneer Enterprises API
+# Pioneer Legacy Works API
 
-Express, TypeScript, Prisma, and PostgreSQL backend for the Pioneer Enterprises website, division apps, customer portal, and admin panel.
+Express, TypeScript, Prisma, and PostgreSQL backend for the Pioneer Legacy Works website, division apps, customer portal, and admin panel.
 
 ## Local setup
 

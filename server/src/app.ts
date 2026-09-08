@@ -27,13 +27,13 @@ app.use(express.json({ limit: "2mb" }));
 app.use("/api", apiRateLimiter);
 
 app.get("/health", (_request, response) => {
-  response.json({ status: "ok", service: "pioneer-enterprises-api" });
+  response.json({ status: "ok", service: "pioneer-legacy-works-api" });
 });
 
 app.get("/ready", async (_request, response) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
-    response.json({ status: "ready", service: "pioneer-enterprises-api" });
+    response.json({ status: "ready", service: "pioneer-legacy-works-api" });
   } catch (error) {
     logEvent("error", "database_readiness_check_failed", {
       requestId: response.locals.requestId,
@@ -41,7 +41,7 @@ app.get("/ready", async (_request, response) => {
     });
     response.status(503).json({
       status: "unavailable",
-      service: "pioneer-enterprises-api",
+      service: "pioneer-legacy-works-api",
       requestId: response.locals.requestId
     });
   }

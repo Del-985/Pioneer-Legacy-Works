@@ -6,7 +6,7 @@ function Companies() {
       <p className="website-page__eyebrow">Our Portfolio</p>
       <h1 className="website-page__title">Companies</h1>
       <p className="website-page__description">
-        Pioneer Enterprises will use this page to introduce each operating
+        Pioneer Legacy Works will use this page to introduce each operating
         company and direct visitors into its self-contained website.
       </p>
 

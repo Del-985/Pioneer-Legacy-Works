@@ -40,7 +40,7 @@ const values = [
   {
     title: "Built for Growth",
     description:
-      "Pioneer Enterprises creates a shared foundation that allows every company to grow without losing its identity."
+      "Pioneer Legacy Works creates a shared foundation that allows every company to grow without losing its identity."
   }
 ];
 
@@ -63,7 +63,7 @@ function Home() {
             </h1>
 
             <p className="home-hero__description">
-              Pioneer Enterprises supports a growing family of service companies
+              Pioneer Legacy Works supports a growing family of service companies
               across property care, transportation, logistics, and media
               production.
             </p>
@@ -167,7 +167,7 @@ function Home() {
             </h2>
 
             <p className="home-section__description">
-              Pioneer Enterprises provides the shared structure behind each
+              Pioneer Legacy Works provides the shared structure behind each
               company, including technology, administration, operations,
               branding, and long-term planning.
             </p>

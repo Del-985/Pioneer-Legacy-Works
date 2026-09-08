@@ -9,7 +9,7 @@ function Header() {
         <Link
           className="site-brand"
           to="/"
-          aria-label="Pioneer Management Group home"
+          aria-label="Pioneer Legacy Works home"
         >
           <span className="site-brand__mark" aria-hidden="true">
             P
@@ -17,7 +17,7 @@ function Header() {
 
           <span className="site-brand__text">
             <span className="site-brand__name">Pioneer</span>
-            <span className="site-brand__subtitle">Management Group</span>
+            <span className="site-brand__subtitle">Legacy Works</span>
           </span>
         </Link>
 

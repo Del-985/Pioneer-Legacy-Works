@@ -25,7 +25,7 @@ function Footer() {
           <Link
             className="site-brand site-brand--footer"
             to="/"
-            aria-label="Pioneer Management Group home"
+            aria-label="Pioneer Legacy Works home"
           >
             <span className="site-brand__mark" aria-hidden="true">
               P
@@ -33,7 +33,7 @@ function Footer() {
 
             <span className="site-brand__text">
               <span className="site-brand__name">Pioneer</span>
-              <span className="site-brand__subtitle">Management Group</span>
+              <span className="site-brand__subtitle">Legacy Works</span>
             </span>
           </Link>
 
@@ -91,7 +91,7 @@ function Footer() {
       <div className="site-footer__bottom">
         <div className="container site-footer__bottom-inner">
           <p>
-            &copy; {currentYear} Pioneer Management Group. All rights reserved.
+            &copy; {currentYear} Pioneer Legacy Works. All rights reserved.
           </p>
 
           <p>Built to support the Pioneer family of businesses.</p>

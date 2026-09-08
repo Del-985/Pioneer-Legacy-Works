@@ -30,7 +30,7 @@ function AdminHeader() {
     <header className="admin-header">
       <div className="admin-header__heading">
         <p className="admin-header__eyebrow">
-          Pioneer Management Group
+          Pioneer Legacy Works
         </p>
 
         <h1 className="admin-header__title">Administration</h1>

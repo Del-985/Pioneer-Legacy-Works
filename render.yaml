@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: pioneer-enterprises-api
+    name: pioneer-legacy-works-api
     runtime: node
     rootDir: server
     buildCommand: npm install && npm run prisma:generate && npm run build
