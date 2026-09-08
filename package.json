@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:admin": "tsc -b && vite build --mode admin && npm run pages:fallback",
+    "pages:fallback": "node scripts/create-spa-fallback.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "api:install": "npm --prefix server install",
