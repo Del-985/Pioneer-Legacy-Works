@@ -10,8 +10,8 @@ function LandscapingHeader() {
         <NavLink className="landscaping-app__brand" to={ROUTES.divisions.landscaping.root}>
           <span className="landscaping-app__brand-mark" aria-hidden="true">P</span>
           <span>
-            <strong>Pioneer Landscaping Services</strong>
-            <small>Property care built around dependable service</small>
+            <strong>Pioneer Outdoor Services</strong>
+            <small>Outdoor property care built around dependable service</small>
           </span>
         </NavLink>
 
