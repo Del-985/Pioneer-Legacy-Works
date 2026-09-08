@@ -2,20 +2,23 @@ import { useEffect } from "react";
 import { Navigate, createBrowserRouter, useLocation } from "react-router-dom";
 
 import { adminRoutes } from "./admin/routes";
-import { outdoorServicesRoutes } from "./divisions/outdoor-services";
 import { websiteRoutes } from "./website/routes";
 
 const adminOnlyBuild = import.meta.env.MODE === "admin";
+const outdoorServicesDomain = "https://pioneeroutdoorservices.com";
 
-function LegacyLandscapingRedirect() {
+interface OutdoorServicesRedirectProps {
+  sourcePrefix: string;
+}
+
+function OutdoorServicesRedirect({ sourcePrefix }: OutdoorServicesRedirectProps) {
   const location = useLocation();
-  const legacyPrefix = "/landscaping";
-  const suffix = location.pathname.startsWith(legacyPrefix)
-    ? location.pathname.slice(legacyPrefix.length)
+  const suffix = location.pathname.startsWith(sourcePrefix)
+    ? location.pathname.slice(sourcePrefix.length)
     : "";
 
   useEffect(() => {
-    const destination = `https://pioneeroutdoorservices.com${suffix || "/"}${location.search}${location.hash}`;
+    const destination = `${outdoorServicesDomain}${suffix || "/"}${location.search}${location.hash}`;
     window.location.replace(destination);
   }, [location.hash, location.search, suffix]);
 
@@ -30,9 +33,22 @@ const routes = adminOnlyBuild
     ]
   : [
       ...websiteRoutes,
-      ...outdoorServicesRoutes,
-      { path: "/landscaping", element: <LegacyLandscapingRedirect /> },
-      { path: "/landscaping/*", element: <LegacyLandscapingRedirect /> },
+      {
+        path: "/landscaping",
+        element: <OutdoorServicesRedirect sourcePrefix="/landscaping" />
+      },
+      {
+        path: "/landscaping/*",
+        element: <OutdoorServicesRedirect sourcePrefix="/landscaping" />
+      },
+      {
+        path: "/outdoor-services",
+        element: <OutdoorServicesRedirect sourcePrefix="/outdoor-services" />
+      },
+      {
+        path: "/outdoor-services/*",
+        element: <OutdoorServicesRedirect sourcePrefix="/outdoor-services" />
+      },
       ...adminRoutes
     ];
 
