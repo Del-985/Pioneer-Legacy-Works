@@ -1,6 +1,8 @@
+import { timingSafeEqual } from "node:crypto";
 import { Router } from "express";
 import { z } from "zod";
 
+import { env } from "../config/env.js";
 import { authenticate } from "../middleware/authenticate.js";
 import { createAccessToken, hashPassword, verifyPassword } from "../lib/auth.js";
 import { prisma } from "../lib/prisma.js";
@@ -15,9 +17,113 @@ const registerSchema = z.object({
   password: z.string().min(8).max(128)
 });
 
+const bootstrapAdminSchema = z.object({
+  firstName: z.string().trim().min(1).max(80),
+  lastName: z.string().trim().min(1).max(80),
+  email: z.string().trim().email().transform((value) => value.toLowerCase()),
+  password: z.string().min(8).max(128)
+});
+
 const loginSchema = z.object({
   email: z.string().trim().email().transform((value) => value.toLowerCase()),
   password: z.string().min(1)
+});
+
+function secretsMatch(candidate: string, expected: string) {
+  const candidateBuffer = Buffer.from(candidate);
+  const expectedBuffer = Buffer.from(expected);
+
+  return (
+    candidateBuffer.length === expectedBuffer.length &&
+    timingSafeEqual(candidateBuffer, expectedBuffer)
+  );
+}
+
+async function getAdminBootstrapStatus() {
+  const adminExists = Boolean(
+    await prisma.user.findFirst({
+      where: { role: "ADMIN" },
+      select: { id: true }
+    })
+  );
+  const requiresSecret =
+    env.NODE_ENV === "production" || Boolean(env.ADMIN_BOOTSTRAP_SECRET);
+  const configured =
+    !requiresSecret || Boolean(env.ADMIN_BOOTSTRAP_SECRET);
+
+  return {
+    enabled: env.ENABLE_ADMIN_BOOTSTRAP,
+    configured,
+    available: env.ENABLE_ADMIN_BOOTSTRAP && configured && !adminExists,
+    requiresSecret,
+    adminExists
+  };
+}
+
+router.get("/bootstrap-admin/status", async (_request, response) => {
+  response.json(await getAdminBootstrapStatus());
+});
+
+router.post("/bootstrap-admin", async (request, response) => {
+  const status = await getAdminBootstrapStatus();
+
+  if (!status.enabled) {
+    response.status(404).json({ message: "Administrator bootstrap is disabled." });
+    return;
+  }
+
+  if (!status.configured) {
+    response.status(503).json({
+      message: "Administrator bootstrap requires ADMIN_BOOTSTRAP_SECRET in production."
+    });
+    return;
+  }
+
+  if (status.adminExists) {
+    response.status(409).json({
+      message: "An administrator account already exists. Bootstrap is no longer available."
+    });
+    return;
+  }
+
+  if (env.ADMIN_BOOTSTRAP_SECRET) {
+    const suppliedSecret = request.get("x-admin-bootstrap-secret") ?? "";
+    if (!secretsMatch(suppliedSecret, env.ADMIN_BOOTSTRAP_SECRET)) {
+      response.status(403).json({ message: "Invalid administrator bootstrap secret." });
+      return;
+    }
+  }
+
+  const input = bootstrapAdminSchema.parse(request.body);
+  const existingUser = await prisma.user.findUnique({ where: { email: input.email } });
+
+  if (existingUser) {
+    response.status(409).json({
+      message: "An account already exists for that email address."
+    });
+    return;
+  }
+
+  const passwordHash = await hashPassword(input.password);
+  const user = await prisma.user.create({
+    data: {
+      email: input.email,
+      passwordHash,
+      firstName: input.firstName,
+      lastName: input.lastName,
+      role: "ADMIN"
+    },
+    select: {
+      id: true,
+      email: true,
+      firstName: true,
+      lastName: true,
+      role: true
+    }
+  });
+
+  const token = createAccessToken({ sub: user.id, email: user.email, role: user.role });
+  response.status(201).json({ user, token });
 });
 
 router.post("/register", async (request, response) => {
