@@ -30,7 +30,7 @@ export const businesses: BusinessDefinition[] = [
     shortName: "Pioneer Outdoor Services",
     description:
       "Landscaping, lawn care, exterior cleaning, snow and ice service, property maintenance, and related outdoor services for residential and commercial customers.",
-    route: ROUTES.divisions.outdoorServices.root,
+    route: "https://pioneeroutdoorservices.com",
     status: "active",
     enabledModules: [...sharedAdminModules],
     theme: {
