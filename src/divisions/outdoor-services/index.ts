@@ -1,1 +1,0 @@
-export { outdoorServicesRoutes } from "./routes";
