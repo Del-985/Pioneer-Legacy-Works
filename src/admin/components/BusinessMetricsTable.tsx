@@ -5,7 +5,7 @@ interface BusinessMetricsTableProps {
 }
 
 const names = {
-  landscaping: "Pioneer Landscaping",
+  landscaping: "Pioneer Outdoor Services",
   transport: "Pioneer Transport",
   productions: "Pioneer Productions"
 };
