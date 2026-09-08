@@ -10,18 +10,18 @@ export const ROUTES = {
 
   divisions: {
     landscaping: {
-      root: "/landscaping",
-      services: "/landscaping/services",
-      gallery: "/landscaping/gallery",
-      quote: "/landscaping/quote",
-      request: "/landscaping/request",
-      contact: "/landscaping/contact",
-      login: "/landscaping/login",
-      register: "/landscaping/register",
-      forgotPassword: "/landscaping/forgot-password",
-      resetPassword: "/landscaping/reset-password",
-      verifyEmail: "/landscaping/verify-email",
-      account: "/landscaping/account"
+      root: "/outdoor-services",
+      services: "/outdoor-services/services",
+      gallery: "/outdoor-services/gallery",
+      quote: "/outdoor-services/quote",
+      request: "/outdoor-services/request",
+      contact: "/outdoor-services/contact",
+      login: "/outdoor-services/login",
+      register: "/outdoor-services/register",
+      forgotPassword: "/outdoor-services/forgot-password",
+      resetPassword: "/outdoor-services/reset-password",
+      verifyEmail: "/outdoor-services/verify-email",
+      account: "/outdoor-services/account"
     },
 
     transport: {
