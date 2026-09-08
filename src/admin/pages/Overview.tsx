@@ -1,355 +1,150 @@
-import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
-import DashboardWidget, {
-  dashboardWidgetCatalog
-} from "../components/DashboardWidget";
-import DashboardWidgetSettings from "../components/DashboardWidgetSettings";
-import { defaultQuickFormIds } from "../../shared/constants/forms";
-import { defaultWeeklySnapshotSectionIds } from "../../shared/constants/weeklySnapshot";
-import type {
-  DashboardWidgetInstance,
-  DashboardWidgetSize,
-  DashboardWidgetType
-} from "../../shared/types/dashboard";
+import { availableBusinesses } from "../../shared/constants/businesses";
+import { adminBusinessRoute } from "../../shared/constants/routes";
+import type { BusinessSlug } from "../../shared/types/business";
 
-const STORAGE_KEY = "pioneer-admin-dashboard-layout-v1";
+interface FinancialSnapshot {
+  revenue: number | null;
+  expenses: number | null;
+  estimatedProfit: number | null;
+  quotedPipeline: number | null;
+}
 
-const defaultSettings = {
-  business: "all" as const,
-  period: "week" as const,
-  limit: 6
+const emptyFinancialSnapshot: FinancialSnapshot = {
+  revenue: null,
+  expenses: null,
+  estimatedProfit: null,
+  quotedPipeline: null
 };
 
-const defaultWidgets: DashboardWidgetInstance[] = [
-  {
-    instanceId: "today-snapshot",
-    type: "today-snapshot",
-    size: "tall",
-    settings: { ...defaultSettings, period: "today", limit: 5 }
-  },
-  {
-    instanceId: "metrics",
-    type: "metrics",
-    size: "medium",
-    settings: { ...defaultSettings, limit: 4 }
-  },
-  {
-    instanceId: "quick-forms",
-    type: "quick-forms",
-    size: "small",
-    settings: {
-      ...defaultSettings,
-      period: "today",
-      limit: 3,
-      selectedFormIds: [...defaultQuickFormIds]
-    }
-  },
-  {
-    instanceId: "upcoming-jobs",
-    type: "upcoming-jobs",
-    size: "medium",
-    settings: { ...defaultSettings, limit: 5 }
-  },
-  {
-    instanceId: "weekly-snapshot",
-    type: "weekly-snapshot",
-    size: "medium",
-    settings: {
-      ...defaultSettings,
-      selectedWeeklySectionIds: [...defaultWeeklySnapshotSectionIds]
-    }
-  }
-];
+const businessFinancials: Record<BusinessSlug, FinancialSnapshot> = {
+  landscaping: { ...emptyFinancialSnapshot },
+  productions: { ...emptyFinancialSnapshot },
+  transport: { ...emptyFinancialSnapshot }
+};
 
-function settingsForType(type: DashboardWidgetType) {
-  if (type === "quick-forms") {
-    return { selectedFormIds: [...defaultQuickFormIds] };
-  }
+function formatCurrency(value: number | null) {
+  if (value === null) return "—";
 
-  if (type === "weekly-snapshot") {
-    return {
-      selectedWeeklySectionIds: [...defaultWeeklySnapshotSectionIds]
-    };
-  }
-
-  return {};
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0
+  }).format(value);
 }
 
-function createInstance(type: DashboardWidgetType): DashboardWidgetInstance {
-  const definition = dashboardWidgetCatalog.find((item) => item.type === type)!;
+function totalMetric(metric: keyof FinancialSnapshot) {
+  const values = availableBusinesses.map(
+    (business) => businessFinancials[business.slug][metric]
+  );
 
-  return {
-    instanceId: `${type}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-    type,
-    size: definition.defaultSize,
-    settings: {
-      ...defaultSettings,
-      ...settingsForType(type)
-    }
-  };
-}
+  if (values.every((value) => value === null)) return null;
 
-function normalizeWidgets(widgets: DashboardWidgetInstance[]) {
-  return widgets.map((widget) => ({
-    ...widget,
-    settings: {
-      ...defaultSettings,
-      ...widget.settings,
-      ...(widget.type === "quick-forms" && !widget.settings.selectedFormIds
-        ? { selectedFormIds: [...defaultQuickFormIds] }
-        : {}),
-      ...(widget.type === "weekly-snapshot" &&
-      !widget.settings.selectedWeeklySectionIds
-        ? {
-            selectedWeeklySectionIds: [
-              ...defaultWeeklySnapshotSectionIds
-            ]
-          }
-        : {})
-    }
-  }));
-}
-
-function loadWidgets(): DashboardWidgetInstance[] {
-  try {
-    const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (!saved) return defaultWidgets;
-
-    const parsed = JSON.parse(saved) as DashboardWidgetInstance[];
-    return Array.isArray(parsed) && parsed.length > 0
-      ? normalizeWidgets(parsed)
-      : defaultWidgets;
-  } catch {
-    return defaultWidgets;
-  }
+  return values.reduce<number>(
+    (total, value) => total + (value ?? 0),
+    0
+  );
 }
 
 function Overview() {
-  const [widgets, setWidgets] = useState<DashboardWidgetInstance[]>(loadWidgets);
-  const [editing, setEditing] = useState(false);
-  const [draggedId, setDraggedId] = useState<string | null>(null);
-  const [selectedWidgetId, setSelectedWidgetId] = useState<string | null>(null);
-  const [catalogOpen, setCatalogOpen] = useState(false);
-
-  useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(widgets));
-  }, [widgets]);
-
-  const selectedWidget = useMemo(
-    () =>
-      widgets.find((widget) => widget.instanceId === selectedWidgetId) ??
-      null,
-    [selectedWidgetId, widgets]
-  );
-
-  const updateWidget = (
-    instanceId: string,
-    updater: (widget: DashboardWidgetInstance) => DashboardWidgetInstance
-  ) => {
-    setWidgets((current) =>
-      current.map((widget) =>
-        widget.instanceId === instanceId ? updater(widget) : widget
-      )
-    );
-  };
-
-  const moveDraggedWidget = (targetId: string) => {
-    if (!draggedId || draggedId === targetId) return;
-
-    setWidgets((current) => {
-      const sourceIndex = current.findIndex(
-        (widget) => widget.instanceId === draggedId
-      );
-      const targetIndex = current.findIndex(
-        (widget) => widget.instanceId === targetId
-      );
-      if (sourceIndex < 0 || targetIndex < 0) return current;
-
-      const next = [...current];
-      const [moved] = next.splice(sourceIndex, 1);
-      next.splice(targetIndex, 0, moved);
-      return next;
-    });
-  };
-
-  const resetDashboard = () => {
-    if (!window.confirm("Reset the dashboard to the default layout?")) return;
-    setWidgets(normalizeWidgets(defaultWidgets));
-    setSelectedWidgetId(null);
+  const enterpriseTotals: FinancialSnapshot = {
+    revenue: totalMetric("revenue"),
+    expenses: totalMetric("expenses"),
+    estimatedProfit: totalMetric("estimatedProfit"),
+    quotedPipeline: totalMetric("quotedPipeline")
   };
 
   return (
-    <section className="custom-dashboard">
-      <div className="custom-dashboard__heading">
+    <section className="enterprise-financial-overview">
+      <header className="enterprise-financial-overview__heading">
         <div>
-          <p className="admin-page-heading__eyebrow">Dashboard</p>
-          <h2 className="admin-page-heading__title">Operations at a glance</h2>
+          <p className="admin-page-heading__eyebrow">Pioneer Legacy Works</p>
+          <h2 className="admin-page-heading__title">Financial overview</h2>
           <p className="admin-page-heading__description">
-            Arrange, resize, replace, duplicate, and configure the widgets
-            that matter most to you.
+            A quick combined view of the financial position of every Pioneer
+            business. Operational details stay inside each business panel.
           </p>
         </div>
 
-        <div className="custom-dashboard__actions">
-          {editing ? (
-            <>
-              <button
-                type="button"
-                className="custom-dashboard__button"
-                onClick={() => setCatalogOpen((open) => !open)}
-              >
-                Add Widget
-              </button>
-              <button
-                type="button"
-                className="custom-dashboard__button"
-                onClick={resetDashboard}
-              >
-                Reset
-              </button>
-            </>
-          ) : null}
+        <span className="enterprise-financial-overview__period">Current month</span>
+      </header>
 
-          <button
-            type="button"
-            className="custom-dashboard__button custom-dashboard__button--primary"
-            onClick={() => {
-              setEditing((current) => !current);
-              setCatalogOpen(false);
-            }}
-          >
-            {editing ? "Finish Customizing" : "Customize Dashboard"}
-          </button>
-        </div>
+      <div className="enterprise-financial-overview__totals">
+        <article className="enterprise-financial-metric">
+          <span>Revenue</span>
+          <strong>{formatCurrency(enterpriseTotals.revenue)}</strong>
+          <small>Combined recorded revenue</small>
+        </article>
+
+        <article className="enterprise-financial-metric">
+          <span>Expenses</span>
+          <strong>{formatCurrency(enterpriseTotals.expenses)}</strong>
+          <small>Combined recorded expenses</small>
+        </article>
+
+        <article className="enterprise-financial-metric">
+          <span>Estimated profit</span>
+          <strong>{formatCurrency(enterpriseTotals.estimatedProfit)}</strong>
+          <small>Revenue less recorded expenses</small>
+        </article>
+
+        <article className="enterprise-financial-metric">
+          <span>Quoted pipeline</span>
+          <strong>{formatCurrency(enterpriseTotals.quotedPipeline)}</strong>
+          <small>Open quoted work not yet completed</small>
+        </article>
       </div>
 
-      {editing && catalogOpen ? (
-        <section className="dashboard-catalog">
-          <div className="dashboard-catalog__heading">
-            <div>
-              <p>Widget Library</p>
-              <h3>Add another dashboard widget</h3>
-            </div>
-            <button type="button" onClick={() => setCatalogOpen(false)}>×</button>
-          </div>
-
-          <div className="dashboard-catalog__grid">
-            {dashboardWidgetCatalog.map((definition) => (
-              <button
-                type="button"
-                className="dashboard-catalog__item"
-                key={definition.type}
-                onClick={() =>
-                  setWidgets((current) => [
-                    ...current,
-                    createInstance(definition.type)
-                  ])
-                }
-              >
-                <strong>{definition.title}</strong>
-                <span>{definition.description}</span>
-              </button>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {editing ? (
-        <div className="custom-dashboard__notice">
-          Drag widgets to reorder them. Use each widget's controls to replace,
-          resize, duplicate, remove, or configure it.
+      <div className="enterprise-financial-overview__section-heading">
+        <div>
+          <p>Businesses</p>
+          <h3>Financial position by business</h3>
         </div>
-      ) : null}
-
-      <div className="custom-dashboard__grid">
-        {widgets.map((widget) => (
-          <DashboardWidget
-            key={widget.instanceId}
-            widget={widget}
-            editing={editing}
-            dragging={draggedId === widget.instanceId}
-            onDragStart={() => setDraggedId(widget.instanceId)}
-            onDragOver={() => moveDraggedWidget(widget.instanceId)}
-            onDragEnd={() => setDraggedId(null)}
-            onRemove={() =>
-              setWidgets((current) =>
-                current.filter(
-                  (item) => item.instanceId !== widget.instanceId
-                )
-              )
-            }
-            onDuplicate={() =>
-              setWidgets((current) => {
-                const index = current.findIndex(
-                  (item) => item.instanceId === widget.instanceId
-                );
-                const duplicate: DashboardWidgetInstance = {
-                  ...widget,
-                  instanceId: `${widget.type}-${Date.now()}-${Math.random()
-                    .toString(36)
-                    .slice(2, 7)}`,
-                  settings: {
-                    ...widget.settings,
-                    selectedFormIds: widget.settings.selectedFormIds
-                      ? [...widget.settings.selectedFormIds]
-                      : undefined,
-                    selectedWeeklySectionIds:
-                      widget.settings.selectedWeeklySectionIds
-                        ? [...widget.settings.selectedWeeklySectionIds]
-                        : undefined
-                  }
-                };
-                const next = [...current];
-                next.splice(index + 1, 0, duplicate);
-                return next;
-              })
-            }
-            onChangeType={(type) =>
-              updateWidget(widget.instanceId, (current) => ({
-                ...current,
-                type,
-                settings: {
-                  ...current.settings,
-                  ...settingsForType(type)
-                }
-              }))
-            }
-            onChangeSize={(size: DashboardWidgetSize) =>
-              updateWidget(widget.instanceId, (current) => ({
-                ...current,
-                size
-              }))
-            }
-            onConfigure={() => setSelectedWidgetId(widget.instanceId)}
-          />
-        ))}
+        <span>Open a business for operational detail</span>
       </div>
 
-      {widgets.length === 0 ? (
-        <div className="custom-dashboard__empty">
-          <h3>Your dashboard is empty</h3>
-          <p>Turn on customization and add widgets from the library.</p>
-          <button
-            type="button"
-            onClick={() => {
-              setEditing(true);
-              setCatalogOpen(true);
-            }}
-          >
-            Add Widgets
-          </button>
-        </div>
-      ) : null}
+      <div className="enterprise-business-financial-grid">
+        {availableBusinesses.map((business) => {
+          const snapshot = businessFinancials[business.slug];
 
-      {selectedWidget ? (
-        <DashboardWidgetSettings
-          widget={selectedWidget}
-          onChange={(nextWidget) =>
-            updateWidget(selectedWidget.instanceId, () => nextWidget)
-          }
-          onClose={() => setSelectedWidgetId(null)}
-        />
-      ) : null}
+          return (
+            <article className="enterprise-business-financial-card" key={business.id}>
+              <header>
+                <div>
+                  <p>{business.status === "active" ? "Active" : "Coming soon"}</p>
+                  <h4>{business.shortName}</h4>
+                </div>
+                <Link to={adminBusinessRoute(business.slug)}>Open panel</Link>
+              </header>
+
+              <dl>
+                <div>
+                  <dt>Revenue</dt>
+                  <dd>{formatCurrency(snapshot.revenue)}</dd>
+                </div>
+                <div>
+                  <dt>Expenses</dt>
+                  <dd>{formatCurrency(snapshot.expenses)}</dd>
+                </div>
+                <div>
+                  <dt>Est. profit</dt>
+                  <dd>{formatCurrency(snapshot.estimatedProfit)}</dd>
+                </div>
+                <div>
+                  <dt>Quoted pipeline</dt>
+                  <dd>{formatCurrency(snapshot.quotedPipeline)}</dd>
+                </div>
+              </dl>
+
+              <p className="enterprise-business-financial-card__status">
+                Financial data will populate here once business-scoped backend
+                records are connected.
+              </p>
+            </article>
+          );
+        })}
+      </div>
     </section>
   );
 }
