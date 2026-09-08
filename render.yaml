@@ -18,4 +18,4 @@ services:
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: CLIENT_ORIGIN
-        value: https://pioneerlegacyworks.com
+        value: https://pioneerlegacyworks.com,https://admin.pioneerlegacyworks.com
