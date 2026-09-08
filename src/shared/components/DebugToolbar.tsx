@@ -11,12 +11,14 @@ interface DebugSection {
   links: DebugLink[];
 }
 
+const outdoorServicesDomain = "https://pioneeroutdoorservices.com";
+
 const sections: DebugSection[] = [
   {
     label: "Apps",
     links: [
       { label: "Website", path: "/", matchPrefix: false },
-      { label: "Outdoor Services", path: "/outdoor-services", matchPrefix: true },
+      { label: "Outdoor Services", path: outdoorServicesDomain },
       { label: "Transport", path: "/transport", matchPrefix: true },
       { label: "Productions", path: "/productions", matchPrefix: true },
       { label: "Admin", path: "/admin", matchPrefix: true }
@@ -34,18 +36,18 @@ const sections: DebugSection[] = [
   {
     label: "Outdoor Services",
     links: [
-      { label: "Home", path: "/outdoor-services" },
-      { label: "Services", path: "/outdoor-services/services" },
-      { label: "Gallery", path: "/outdoor-services/gallery" },
-      { label: "Quote", path: "/outdoor-services/quote" },
-      { label: "Request", path: "/outdoor-services/request" },
-      { label: "Contact", path: "/outdoor-services/contact" },
-      { label: "Login", path: "/outdoor-services/login" },
-      { label: "Register", path: "/outdoor-services/register" },
-      { label: "Forgot Password", path: "/outdoor-services/forgot-password" },
-      { label: "Reset Password", path: "/outdoor-services/reset-password" },
-      { label: "Verify Email", path: "/outdoor-services/verify-email" },
-      { label: "Customer Dashboard", path: "/outdoor-services/account" }
+      { label: "Home", path: outdoorServicesDomain },
+      { label: "Services", path: `${outdoorServicesDomain}/services` },
+      { label: "Gallery", path: `${outdoorServicesDomain}/gallery` },
+      { label: "Quote", path: `${outdoorServicesDomain}/quote` },
+      { label: "Request", path: `${outdoorServicesDomain}/request` },
+      { label: "Contact", path: `${outdoorServicesDomain}/contact` },
+      { label: "Login", path: `${outdoorServicesDomain}/login` },
+      { label: "Register", path: `${outdoorServicesDomain}/register` },
+      { label: "Forgot Password", path: `${outdoorServicesDomain}/forgot-password` },
+      { label: "Reset Password", path: `${outdoorServicesDomain}/reset-password` },
+      { label: "Verify Email", path: `${outdoorServicesDomain}/verify-email` },
+      { label: "Customer Dashboard", path: `${outdoorServicesDomain}/account` }
     ]
   },
   {
@@ -68,6 +70,7 @@ const sections: DebugSection[] = [
 ];
 
 function isLinkActive(link: DebugLink, currentPath: string) {
+  if (link.path.startsWith("http")) return false;
   if (link.path === "/") return currentPath === "/";
   if (link.matchPrefix) {
     return currentPath === link.path || currentPath.startsWith(`${link.path}/`);
