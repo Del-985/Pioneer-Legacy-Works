@@ -33,6 +33,12 @@ export interface BootstrapAdminInput {
   password: string;
 }
 
+export interface TemporaryAdminInput {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
 export interface AdminBootstrapStatus {
   enabled: boolean;
   configured: boolean;
@@ -45,6 +51,8 @@ interface AuthResponse {
   user: AuthUser;
   token: string;
 }
+
+const TEMPORARY_ADMIN_SESSION_KEY = "pioneer.temporaryAdminSession";
 
 export async function register(input: RegisterInput) {
   const result = await apiRequest<AuthResponse>("/api/auth/register", {
@@ -61,6 +69,7 @@ export async function login(input: LoginInput) {
     body: JSON.stringify(input)
   });
   setAccessToken(result.token);
+  clearTemporaryAdminSession();
   return result;
 }
 
@@ -83,7 +92,49 @@ export async function bootstrapAdmin(
     body: JSON.stringify(input)
   });
   setAccessToken(result.token);
+  clearTemporaryAdminSession();
   return result;
+}
+
+export function createTemporaryAdminSession(input: TemporaryAdminInput) {
+  const user: AuthUser = {
+    id: "temporary-admin",
+    email: input.email.trim().toLowerCase(),
+    firstName: input.firstName.trim(),
+    lastName: input.lastName.trim(),
+    role: "ADMIN"
+  };
+
+  sessionStorage.setItem(TEMPORARY_ADMIN_SESSION_KEY, JSON.stringify(user));
+  setAccessToken(null);
+  return user;
+}
+
+export function getTemporaryAdminUser(): AuthUser | null {
+  const stored = sessionStorage.getItem(TEMPORARY_ADMIN_SESSION_KEY);
+  if (!stored) return null;
+
+  try {
+    const user = JSON.parse(stored) as AuthUser;
+    if (
+      user?.id === "temporary-admin" &&
+      user?.role === "ADMIN" &&
+      typeof user.email === "string" &&
+      typeof user.firstName === "string" &&
+      typeof user.lastName === "string"
+    ) {
+      return user;
+    }
+  } catch {
+    // Invalid temporary state is cleared below.
+  }
+
+  clearTemporaryAdminSession();
+  return null;
+}
+
+export function clearTemporaryAdminSession() {
+  sessionStorage.removeItem(TEMPORARY_ADMIN_SESSION_KEY);
 }
 
 export async function getCurrentUser() {
@@ -99,4 +150,5 @@ export async function forgotPassword(email: string) {
 
 export function logout() {
   setAccessToken(null);
+  clearTemporaryAdminSession();
 }
