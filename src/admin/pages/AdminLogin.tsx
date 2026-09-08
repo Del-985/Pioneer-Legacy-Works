@@ -1,12 +1,11 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 import {
-  bootstrapAdmin,
-  getAdminBootstrapStatus,
+  createTemporaryAdminSession,
+  getTemporaryAdminUser,
   login,
-  logout,
-  type AdminBootstrapStatus
+  logout
 } from "../../services/api/auth";
 import { getAccessToken } from "../../services/api/client";
 import { ROUTES } from "../../shared/constants/routes";
@@ -16,7 +15,7 @@ interface LoginLocationState {
   reason?: string;
 }
 
-type AdminLoginMode = "login" | "bootstrap";
+type AdminLoginMode = "login" | "temporary";
 
 const debugBypassEnabled =
   import.meta.env.DEV && import.meta.env.VITE_ADMIN_DEBUG_BYPASS === "true";
@@ -34,64 +33,32 @@ function AdminLogin() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [bootstrapSecret, setBootstrapSecret] = useState("");
-  const [bootstrapStatus, setBootstrapStatus] =
-    useState<AdminBootstrapStatus | null>(null);
-  const [bootstrapStatusFailed, setBootstrapStatusFailed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    let mounted = true;
-
-    getAdminBootstrapStatus()
-      .then((status) => {
-        if (!mounted) return;
-        setBootstrapStatus(status);
-        setBootstrapStatusFailed(false);
-      })
-      .catch(() => {
-        if (!mounted) return;
-        setBootstrapStatusFailed(true);
-      });
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  if (getAccessToken() && !debugBypassEnabled) {
+  if ((getAccessToken() || getTemporaryAdminUser()) && !debugBypassEnabled) {
     return <Navigate replace to={ROUTES.admin.overview} />;
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
-    setIsSubmitting(true);
 
-    try {
-      if (mode === "bootstrap") {
-        const result = await bootstrapAdmin(
-          { firstName, lastName, email, password },
-          bootstrapSecret.trim() || undefined
-        );
-
-        if (result.user.role !== "ADMIN") {
-          logout();
-          setError("The bootstrap account was not created with administrator access.");
-          return;
-        }
-
-        setBootstrapStatus((current) =>
-          current
-            ? { ...current, available: false, adminExists: true }
-            : current
-        );
-        navigate(destination, { replace: true });
+    if (mode === "temporary") {
+      if (!firstName.trim() || !lastName.trim() || !email.trim()) {
+        setError("Enter a name and email address for the temporary administrator.");
         return;
       }
 
+      createTemporaryAdminSession({ firstName, lastName, email });
+      navigate(destination, { replace: true });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
       const result = await login({ email, password });
 
       if (result.user.role !== "ADMIN" && result.user.role !== "EMPLOYEE") {
@@ -108,8 +75,7 @@ function AdminLogin() {
     }
   };
 
-  const bootstrapMode = mode === "bootstrap";
-  const showBootstrapOption = bootstrapStatus?.adminExists !== true;
+  const temporaryMode = mode === "temporary";
 
   return (
     <main className="admin-login-page">
@@ -126,79 +92,59 @@ function AdminLogin() {
           </p>
           <ul>
             <li>Role-protected administration</li>
-            <li>Secure token-based sessions</li>
-            <li>Access validated against the Pioneer API</li>
+            <li>Temporary frontend access while the API is being built</li>
+            <li>Backend authentication remains separate and protected</li>
           </ul>
         </aside>
 
         <form className="admin-login-card" onSubmit={handleSubmit}>
           <header>
-            <p>{bootstrapMode ? "One-time Setup" : "Staff Portal"}</p>
-            <h2>{bootstrapMode ? "Create first administrator" : "Sign in to Admin"}</h2>
+            <p>{temporaryMode ? "Temporary Setup" : "Staff Portal"}</p>
+            <h2>{temporaryMode ? "Create temporary administrator" : "Sign in to Admin"}</h2>
             <span>
-              {bootstrapMode
-                ? "This setup option closes automatically after the first administrator is created."
-                : "Use an administrator or employee account."}
+              {temporaryMode
+                ? "Creates a browser-session admin identity only. No backend connection is required."
+                : "Use an administrator or employee account when the API is available."}
             </span>
           </header>
 
-          {state?.reason === "authentication-required" && !bootstrapMode ? (
+          {state?.reason === "authentication-required" && !temporaryMode ? (
             <p className="admin-login-card__notice" role="status">
               Sign in is required to open that administrative page.
             </p>
           ) : null}
 
-          {bootstrapMode && bootstrapStatus?.adminExists ? (
-            <p className="admin-login-card__notice" role="status">
-              An administrator account already exists. Use staff sign in instead.
-            </p>
-          ) : null}
+          {temporaryMode ? (
+            <>
+              <p className="admin-login-card__notice" role="status">
+                Temporary administrator mode unlocks the admin interface for development.
+                It does not create a database account, issue an API token, or grant backend access.
+              </p>
 
-          {bootstrapMode && bootstrapStatus && !bootstrapStatus.enabled ? (
-            <p className="admin-login-card__notice" role="status">
-              First-administrator setup is currently disabled on the API. Temporarily
-              set ENABLE_ADMIN_BOOTSTRAP=true on the backend to use this form.
-            </p>
-          ) : null}
+              <div className="admin-login-card__name-grid">
+                <label>
+                  <span>First name</span>
+                  <input
+                    autoComplete="given-name"
+                    onChange={(event) => setFirstName(event.target.value)}
+                    required
+                    type="text"
+                    value={firstName}
+                  />
+                </label>
 
-          {bootstrapMode && bootstrapStatus?.enabled && !bootstrapStatus.configured ? (
-            <p className="admin-login-card__notice" role="status">
-              First-administrator setup is enabled, but production setup also requires
-              an ADMIN_BOOTSTRAP_SECRET of at least 16 characters.
-            </p>
-          ) : null}
-
-          {bootstrapMode && bootstrapStatusFailed ? (
-            <p className="admin-login-card__notice" role="status">
-              The bootstrap status endpoint could not be reached. The form is still
-              available, but the backend may need to be redeployed before setup works.
-            </p>
-          ) : null}
-
-          {bootstrapMode ? (
-            <div className="admin-login-card__name-grid">
-              <label>
-                <span>First name</span>
-                <input
-                  autoComplete="given-name"
-                  onChange={(event) => setFirstName(event.target.value)}
-                  required
-                  type="text"
-                  value={firstName}
-                />
-              </label>
-
-              <label>
-                <span>Last name</span>
-                <input
-                  autoComplete="family-name"
-                  onChange={(event) => setLastName(event.target.value)}
-                  required
-                  type="text"
-                  value={lastName}
-                />
-              </label>
-            </div>
+                <label>
+                  <span>Last name</span>
+                  <input
+                    autoComplete="family-name"
+                    onChange={(event) => setLastName(event.target.value)}
+                    required
+                    type="text"
+                    value={lastName}
+                  />
+                </label>
+              </div>
+            </>
           ) : null}
 
           <label>
@@ -212,33 +158,21 @@ function AdminLogin() {
             />
           </label>
 
-          <label>
-            <span>Password</span>
-            <div className="admin-login-card__password">
-              <input
-                autoComplete={bootstrapMode ? "new-password" : "current-password"}
-                minLength={bootstrapMode ? 8 : undefined}
-                onChange={(event) => setPassword(event.target.value)}
-                required
-                type={showPassword ? "text" : "password"}
-                value={password}
-              />
-              <button type="button" onClick={() => setShowPassword((shown) => !shown)}>
-                {showPassword ? "Hide" : "Show"}
-              </button>
-            </div>
-          </label>
-
-          {bootstrapMode && bootstrapStatus?.requiresSecret ? (
+          {!temporaryMode ? (
             <label>
-              <span>Bootstrap secret</span>
-              <input
-                autoComplete="off"
-                onChange={(event) => setBootstrapSecret(event.target.value)}
-                required
-                type="password"
-                value={bootstrapSecret}
-              />
+              <span>Password</span>
+              <div className="admin-login-card__password">
+                <input
+                  autoComplete="current-password"
+                  onChange={(event) => setPassword(event.target.value)}
+                  required
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                />
+                <button type="button" onClick={() => setShowPassword((shown) => !shown)}>
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
             </label>
           ) : null}
 
@@ -246,33 +180,29 @@ function AdminLogin() {
 
           <button
             className="admin-login-card__submit"
-            disabled={isSubmitting || (bootstrapMode && bootstrapStatus?.adminExists === true)}
+            disabled={isSubmitting}
             type="submit"
           >
-            {isSubmitting
-              ? bootstrapMode
-                ? "Creating administrator…"
-                : "Signing in…"
-              : bootstrapMode
-                ? "Create Administrator"
+            {temporaryMode
+              ? "Create Temporary Administrator"
+              : isSubmitting
+                ? "Signing in…"
                 : "Sign In"}
           </button>
 
-          {showBootstrapOption ? (
-            <button
-              className="admin-login-card__bootstrap-toggle"
-              type="button"
-              onClick={() => {
-                setMode((current) => current === "login" ? "bootstrap" : "login");
-                setError("");
-                setShowPassword(false);
-              }}
-            >
-              {bootstrapMode ? "Back to staff sign in" : "Create the first administrator"}
-            </button>
-          ) : null}
+          <button
+            className="admin-login-card__bootstrap-toggle"
+            type="button"
+            onClick={() => {
+              setMode((current) => current === "login" ? "temporary" : "login");
+              setError("");
+              setShowPassword(false);
+            }}
+          >
+            {temporaryMode ? "Back to staff sign in" : "Create a temporary administrator"}
+          </button>
 
-          {debugBypassEnabled && !bootstrapMode ? (
+          {debugBypassEnabled && !temporaryMode ? (
             <button
               className="admin-login-card__debug"
               onClick={() => navigate(destination, { replace: true })}
