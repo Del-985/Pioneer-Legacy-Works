@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { raw, Router } from "express";
 
 import {
   getCustomer,
@@ -11,6 +11,12 @@ import {
   updateQuote,
   updateServiceRequest
 } from "../controllers/admin.controller.js";
+import {
+  deleteFormFile,
+  downloadFormFile,
+  listFormFiles,
+  uploadFormFile
+} from "../controllers/forms.controller.js";
 import {
   convertQuote,
   convertServiceRequest,
@@ -41,5 +47,15 @@ router.post("/service-requests/:id/convert-to-job", convertServiceRequest);
 router.get("/jobs", listJobs);
 router.get("/jobs/:id", getJob);
 router.patch("/jobs/:id", updateJob);
+
+router.get("/form-files", listFormFiles);
+router.post(
+  "/form-files",
+  requireRole("ADMIN"),
+  raw({ type: "application/pdf", limit: "15mb" }),
+  uploadFormFile
+);
+router.get("/form-files/:id/download", downloadFormFile);
+router.delete("/form-files/:id", requireRole("ADMIN"), deleteFormFile);
 
 export default router;
