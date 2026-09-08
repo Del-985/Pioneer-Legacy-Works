@@ -11,6 +11,7 @@ import "./styles/landscaping-customer-pages.css";
 import "./styles/landscaping-account.css";
 import "./styles/landscaping-auth.css";
 import "./styles/admin.css";
+import "./styles/admin-business.css";
 import "./styles/admin-auth.css";
 import "./styles/dashboard-customizer.css";
 import "./styles/dashboard-form-settings.css";
@@ -34,7 +35,7 @@ const rootElement = document.getElementById("root");
 
 if (!rootElement) {
   throw new Error(
-    'Unable to start Pioneer Management Group: the root element with id="root" was not found.'
+    'Unable to start Pioneer Legacy Works: the root element with id="root" was not found.'
   );
 }
 
