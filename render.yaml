@@ -6,6 +6,8 @@ services:
     buildCommand: npm install && npm run prisma:generate && npm run build
     startCommand: npm run prisma:deploy && npm start
     healthCheckPath: /ready
+    domains:
+      - api.pioneerlegacyworks.com
     envVars:
       - key: NODE_ENV
         value: production
@@ -16,4 +18,4 @@ services:
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: CLIENT_ORIGIN
-        sync: false
+        value: https://pioneerlegacyworks.com
