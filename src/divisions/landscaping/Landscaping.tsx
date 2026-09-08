@@ -47,11 +47,12 @@ function Landscaping() {
       <section className="landscaping-hero">
         <div className="container landscaping-hero__layout">
           <div className="landscaping-hero__copy">
-            <p className="landscaping-eyebrow">Pioneer Landscaping Services</p>
-            <h1>Dependable property care, without the runaround.</h1>
+            <p className="landscaping-eyebrow">Pioneer Outdoor Services</p>
+            <h1>Dependable outdoor property care, without the runaround.</h1>
             <p className="landscaping-hero__description">
-              Lawn maintenance, pressure washing, cleanup, and landscape
-              improvements for residential and commercial properties.
+              Lawn maintenance, landscaping, pressure washing, seasonal cleanup,
+              snow and ice service, and property maintenance for residential and
+              commercial properties.
             </p>
             <div className="landscaping-hero__actions">
               <Link className="landscaping-button landscaping-button--primary" to={ROUTES.divisions.landscaping.request}>
@@ -90,7 +91,7 @@ function Landscaping() {
         <div className="container">
           <div className="landscaping-section__heading">
             <p className="landscaping-eyebrow">Core Services</p>
-            <h2>Property services built around what customers actually need.</h2>
+            <h2>Outdoor services built around what customers actually need.</h2>
             <p>
               Start with a simple request. We will review the property, confirm
               the scope, and provide the next steps without unnecessary complexity.
@@ -116,8 +117,8 @@ function Landscaping() {
             <p className="landscaping-eyebrow">Simple Process</p>
             <h2>From request to completed work.</h2>
             <p>
-              The landscaping app is being built as the customer hub for every
-              step of the service process.
+              The Pioneer Outdoor Services site is being built as the customer
+              hub for every step of the service process.
             </p>
           </div>
 
@@ -134,9 +135,9 @@ function Landscaping() {
         <div className="container landscaping-customer-hub__layout">
           <div>
             <p className="landscaping-eyebrow">Customer Hub</p>
-            <h2>One place for every future landscaping module.</h2>
+            <h2>One place for every future outdoor service module.</h2>
             <p>
-              The landing page now acts as the front door for customer login,
+              The landing page acts as the front door for customer login,
               service requests, estimates, scheduling, payments, and job history
               as those modules are completed.
             </p>
