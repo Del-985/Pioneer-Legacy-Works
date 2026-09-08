@@ -9,7 +9,6 @@ on:
       - "scripts/create-spa-fallback.mjs"
       - ".env.admin"
       - "package.json"
-      - "package-lock.json"
       - "vite.config.ts"
       - "tsconfig*.json"
       - ".github/workflows/admin-build.yml"
@@ -29,10 +28,10 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: npm
+          package-manager-cache: false
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build standalone admin
         run: npm run build:admin
