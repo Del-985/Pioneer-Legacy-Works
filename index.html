@@ -6,6 +6,18 @@
   <title>Pioneer Legacy Works</title>
 
   <style>
+    :root {
+      --navy: #14263D;
+      --navy-light: #1E3A5A;
+      --brass: #C79A3B;
+      --brass-light: #E0BB68;
+      --ivory: #F6F3EC;
+      --white: #FFFFFF;
+      --charcoal: #202A33;
+      --slate: #64707C;
+      --border: #D8D3C8;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -14,8 +26,8 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #ffffff;
-      color: #1f1f1f;
+      background: var(--ivory);
+      color: var(--charcoal);
     }
 
     .navbar {
@@ -23,32 +35,34 @@
       align-items: center;
       justify-content: space-between;
       padding: 1rem 2rem;
-      border-bottom: 1px solid #dddddd;
-      background: #ffffff;
+      background: var(--navy);
+      border-bottom: 3px solid var(--brass);
     }
 
     .navbar-brand {
-      color: inherit;
+      color: var(--white);
       font-size: 1.25rem;
       font-weight: 700;
+      letter-spacing: 0.02em;
       text-decoration: none;
     }
 
     .navbar-nav {
       display: flex;
-      gap: 1.5rem;
+      gap: 1.75rem;
       list-style: none;
     }
 
     .navbar-nav a {
-      color: inherit;
-      font-weight: 500;
+      color: var(--white);
+      font-weight: 600;
       text-decoration: none;
+      transition: color 0.2s ease;
     }
 
     .navbar-nav a:hover,
     .navbar-nav a:focus {
-      text-decoration: underline;
+      color: var(--brass-light);
     }
   </style>
 </head>
