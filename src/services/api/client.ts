@@ -1,5 +1,13 @@
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? "http://localhost:4000").replace(/\/$/, "");
+const DEFAULT_API_BASE_URL = import.meta.env.PROD
+  ? "https://api.pioneerlegacyworks.com"
+  : "http://localhost:4000";
+
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? DEFAULT_API_BASE_URL).replace(/\/$/, "");
 const TOKEN_KEY = "pioneer.accessToken";
+
+if (import.meta.env.PROD && !API_BASE_URL.startsWith("https://")) {
+  throw new Error("VITE_API_BASE_URL must use HTTPS in production.");
+}
 
 export class ApiError extends Error {
   constructor(
