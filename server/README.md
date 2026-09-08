@@ -17,6 +17,32 @@ npm run api:dev
 
 The API defaults to `http://localhost:4000`.
 
+## First administrator bootstrap
+
+The admin login screen can create the first administrator account when no `ADMIN`
+user exists. This path is intentionally separate from normal customer registration;
+`POST /api/auth/register` always creates a customer-role account.
+
+In development and test environments, first-admin bootstrap is enabled by default.
+It can be explicitly controlled with:
+
+```env
+ENABLE_ADMIN_BOOTSTRAP=true
+```
+
+Production keeps bootstrap disabled by default. To use it temporarily in production,
+set both values below, restart the API, create the administrator from the admin login
+screen, then disable or remove the bootstrap settings:
+
+```env
+ENABLE_ADMIN_BOOTSTRAP=true
+ADMIN_BOOTSTRAP_SECRET=replace-with-a-temporary-secret-at-least-16-characters
+```
+
+The production login screen asks for that secret and sends it only in the bootstrap
+request header. The API automatically refuses additional bootstrap requests as soon
+as an administrator exists, even if the enable flag has not yet been removed.
+
 ## Database migrations and tests
 
 Apply the checked-in migrations before starting the API:
@@ -38,6 +64,8 @@ The backend CI workflow provisions PostgreSQL and performs these steps automatic
 
 - `GET /health`
 - `GET /ready` (includes database connectivity)
+- `GET /api/auth/bootstrap-admin/status`
+- `POST /api/auth/bootstrap-admin`
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `GET /api/auth/me`
@@ -60,6 +88,10 @@ The backend CI workflow provisions PostgreSQL and performs these steps automatic
 - `GET /api/admin/jobs`
 - `GET /api/admin/jobs/:id`
 - `PATCH /api/admin/jobs/:id`
+- `GET /api/admin/form-files`
+- `POST /api/admin/form-files`
+- `GET /api/admin/form-files/:id/download`
+- `DELETE /api/admin/form-files/:id`
 
 All `/api/admin` routes require a valid `ADMIN` or `EMPLOYEE` bearer token.
 List endpoints support search, status filters, sorting, and page-based pagination.
