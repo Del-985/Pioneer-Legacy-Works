@@ -1,3 +1,5 @@
+import type { BusinessSlug } from "../types/business";
+
 export const ROUTES = {
   website: {
     home: "/",
@@ -56,9 +58,29 @@ export const ROUTES = {
     history: "/admin/history",
     metrics: "/admin/metrics",
     notifications: "/admin/notifications",
-    settings: "/admin/settings"
+    settings: "/admin/settings",
+    businesses: "/admin/businesses"
   }
 } as const;
+
+export type AdminBusinessSection =
+  | "overview"
+  | "calendar"
+  | "customers"
+  | "estimates"
+  | "jobs"
+  | "expenses"
+  | "equipment"
+  | "forms"
+  | "website";
+
+export function adminBusinessRoute(
+  business: BusinessSlug,
+  section: AdminBusinessSection = "overview"
+) {
+  const root = `${ROUTES.admin.businesses}/${business}`;
+  return section === "overview" ? root : `${root}/${section}`;
+}
 
 export type WebsiteRoute =
   (typeof ROUTES.website)[keyof typeof ROUTES.website];
