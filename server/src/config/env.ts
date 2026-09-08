@@ -17,7 +17,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string().min(1),
   JWT_SECRET: z.string().min(32),
   JWT_EXPIRES_IN: z.string().default("7d"),
-  CLIENT_ORIGIN: z.string().url().default("http://localhost:5173"),
+  CLIENT_ORIGIN: z.string().min(1).default("http://localhost:5173"),
   ENABLE_ADMIN_BOOTSTRAP: optionalBooleanFlag,
   ADMIN_BOOTSTRAP_SECRET: optionalBootstrapSecret
 });
@@ -29,8 +29,20 @@ if (!parsed.success) {
   throw new Error("Backend environment validation failed");
 }
 
+const clientOrigins = z.array(z.string().url()).safeParse(
+  parsed.data.CLIENT_ORIGIN.split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+);
+
+if (!clientOrigins.success || clientOrigins.data.length === 0) {
+  console.error("Invalid CLIENT_ORIGIN configuration");
+  throw new Error("Backend CLIENT_ORIGIN validation failed");
+}
+
 export const env = {
   ...parsed.data,
+  CLIENT_ORIGINS: clientOrigins.data,
   ENABLE_ADMIN_BOOTSTRAP:
     parsed.data.ENABLE_ADMIN_BOOTSTRAP ?? (parsed.data.NODE_ENV !== "production")
 };
