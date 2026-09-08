@@ -24,7 +24,7 @@ function AuthLayout({
         <aside className="landscaping-auth-intro">
           <Link className="landscaping-auth-intro__brand" to={ROUTES.divisions.landscaping.root}>
             <span aria-hidden="true">P</span>
-            <strong>Pioneer Landscaping Services</strong>
+            <strong>Pioneer Outdoor Services</strong>
           </Link>
           <p className="landscaping-eyebrow">Customer Portal</p>
           <h1>Manage your property services in one place.</h1>
