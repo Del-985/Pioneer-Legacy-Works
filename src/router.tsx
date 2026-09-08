@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Navigate, createBrowserRouter, useLocation } from "react-router-dom";
 
 import { adminRoutes } from "./admin/routes";
@@ -12,9 +13,13 @@ function LegacyLandscapingRedirect() {
   const suffix = location.pathname.startsWith(legacyPrefix)
     ? location.pathname.slice(legacyPrefix.length)
     : "";
-  const destination = `/outdoor-services${suffix || ""}${location.search}${location.hash}`;
 
-  return <Navigate to={destination} replace />;
+  useEffect(() => {
+    const destination = `https://pioneeroutdoorservices.com${suffix || "/"}${location.search}${location.hash}`;
+    window.location.replace(destination);
+  }, [location.hash, location.search, suffix]);
+
+  return null;
 }
 
 const routes = adminOnlyBuild
@@ -26,6 +31,7 @@ const routes = adminOnlyBuild
   : [
       ...websiteRoutes,
       ...outdoorServicesRoutes,
+      { path: "/landscaping", element: <LegacyLandscapingRedirect /> },
       { path: "/landscaping/*", element: <LegacyLandscapingRedirect /> },
       ...adminRoutes
     ];
