@@ -1,7 +1,12 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
-import { getCurrentUser, logout, type AuthUser } from "../../services/api/auth";
+import {
+  getCurrentUser,
+  getTemporaryAdminUser,
+  logout,
+  type AuthUser
+} from "../../services/api/auth";
 import { getAccessToken } from "../../services/api/client";
 import { ROUTES } from "../../shared/constants/routes";
 
@@ -25,6 +30,12 @@ function RequireAdmin({ children }: RequireAdminProps) {
     let active = true;
 
     async function verifyAccess() {
+      const temporaryAdmin = getTemporaryAdminUser();
+      if (temporaryAdmin) {
+        setAccess({ status: "allowed", user: temporaryAdmin });
+        return;
+      }
+
       if (debugBypassEnabled) {
         setAccess({ status: "allowed", user: null });
         return;
