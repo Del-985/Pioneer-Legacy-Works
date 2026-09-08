@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 
 import pioneerEnterprisesLogo from "../assets/pioneer-enterprises-logo.svg";
+import { ROUTES } from "../../shared/constants/routes";
 
 const companies = [
   {
-    name: "Pioneer Pressure Washing & Landscaping",
+    name: "Pioneer Outdoor Services",
     description:
-      "Exterior cleaning, property maintenance, landscaping, and dependable outdoor service for residential and commercial customers.",
-    path: "/landscaping",
-    label: "Property Services"
+      "Landscaping, lawn care, exterior cleaning, snow and ice service, and dependable property maintenance for residential and commercial customers.",
+    path: ROUTES.divisions.landscaping.root,
+    label: "Outdoor & Property Services"
   },
   {
     name: "Pioneer Transport",
