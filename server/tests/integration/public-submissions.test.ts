@@ -59,7 +59,7 @@ describe("public submissions", () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       status: "ready",
-      service: "pioneer-enterprises-api"
+      service: "pioneer-legacy-works-api"
     });
   });
 
