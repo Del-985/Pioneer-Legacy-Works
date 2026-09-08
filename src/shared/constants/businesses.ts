@@ -5,6 +5,23 @@ import type {
 
 import { ROUTES } from "./routes";
 
+const sharedAdminModules: BusinessDefinition["enabledModules"] = [
+  "scheduling",
+  "customers",
+  "contacts",
+  "estimates",
+  "jobs",
+  "expenses",
+  "equipment",
+  "forms",
+  "website",
+  "documents",
+  "history",
+  "metrics",
+  "notifications",
+  "search"
+];
+
 export const businesses: BusinessDefinition[] = [
   {
     id: "pioneer-landscaping",
@@ -15,18 +32,7 @@ export const businesses: BusinessDefinition[] = [
       "Exterior cleaning, landscaping, property maintenance, and related services for residential and commercial customers.",
     route: ROUTES.divisions.landscaping.root,
     status: "active",
-    enabledModules: [
-      "scheduling",
-      "customers",
-      "contacts",
-      "estimates",
-      "expenses",
-      "documents",
-      "history",
-      "metrics",
-      "notifications",
-      "search"
-    ],
+    enabledModules: [...sharedAdminModules],
     theme: {
       primaryColor: "#1f4d3a",
       secondaryColor: "#17382b",
@@ -41,20 +47,9 @@ export const businesses: BusinessDefinition[] = [
     shortName: "Pioneer Transport",
     description:
       "Transportation and logistics services built around dependable scheduling, careful handling, and clear communication.",
-    route: "/transport",
+    route: ROUTES.divisions.transport.root,
     status: "coming-soon",
-    enabledModules: [
-      "scheduling",
-      "customers",
-      "contacts",
-      "estimates",
-      "expenses",
-      "documents",
-      "history",
-      "metrics",
-      "notifications",
-      "search"
-    ],
+    enabledModules: [...sharedAdminModules],
     theme: {
       primaryColor: "#26384a",
       secondaryColor: "#192632",
@@ -69,20 +64,9 @@ export const businesses: BusinessDefinition[] = [
     shortName: "Pioneer Productions",
     description:
       "Creative production services for businesses, organizations, events, and individual clients.",
-    route: "/productions",
+    route: ROUTES.divisions.productions.root,
     status: "coming-soon",
-    enabledModules: [
-      "scheduling",
-      "customers",
-      "contacts",
-      "estimates",
-      "expenses",
-      "documents",
-      "history",
-      "metrics",
-      "notifications",
-      "search"
-    ],
+    enabledModules: [...sharedAdminModules],
     theme: {
       primaryColor: "#3d2f4f",
       secondaryColor: "#281f34",
