@@ -26,10 +26,10 @@ export const businesses: BusinessDefinition[] = [
   {
     id: "pioneer-landscaping",
     slug: "landscaping",
-    name: "Pioneer Pressure Washing & Landscaping",
-    shortName: "Pioneer Landscaping",
+    name: "Pioneer Outdoor Services",
+    shortName: "Pioneer Outdoor Services",
     description:
-      "Exterior cleaning, landscaping, property maintenance, and related services for residential and commercial customers.",
+      "Landscaping, lawn care, exterior cleaning, snow and ice service, property maintenance, and related outdoor services for residential and commercial customers.",
     route: ROUTES.divisions.landscaping.root,
     status: "active",
     enabledModules: [...sharedAdminModules],
