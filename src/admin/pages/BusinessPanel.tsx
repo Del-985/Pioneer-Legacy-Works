@@ -131,7 +131,7 @@ function BusinessPanel() {
           >
             {business.status === "active" ? "Active" : "Coming Soon"}
           </span>
-          <Link to={business.route}>Open public site</Link>
+          <a href={business.route}>Open public site</a>
         </div>
       </header>
 
