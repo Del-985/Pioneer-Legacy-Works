@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
 
 import pioneerEnterprisesLogo from "../assets/pioneer-enterprises-logo.svg";
-import { ROUTES } from "../../shared/constants/routes";
 
 const companies = [
   {
     name: "Pioneer Outdoor Services",
     description:
       "Landscaping, lawn care, exterior cleaning, snow and ice service, and dependable property maintenance for residential and commercial customers.",
-    path: ROUTES.divisions.outdoorServices.root,
+    path: "https://pioneeroutdoorservices.com",
     label: "Outdoor & Property Services"
   },
   {
@@ -85,14 +84,14 @@ function Home() {
 
             <div className="home-hero__quick-links">
               {companies.map((company) => (
-                <Link
+                <a
                   className="home-hero__quick-link"
+                  href={company.path}
                   key={company.path}
-                  to={company.path}
                 >
                   <span>{company.name}</span>
                   <span aria-hidden="true">→</span>
-                </Link>
+                </a>
               ))}
             </div>
           </div>
@@ -126,10 +125,10 @@ function Home() {
                   {company.description}
                 </p>
 
-                <Link className="business-card__link" to={company.path}>
+                <a className="business-card__link" href={company.path}>
                   Visit Company
                   <span aria-hidden="true">→</span>
-                </Link>
+                </a>
               </article>
             ))}
           </div>
