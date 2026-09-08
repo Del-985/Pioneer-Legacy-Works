@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
 
-import { ROUTES } from "../../shared/constants/routes";
-
 const companyLinks = [
   {
     label: "Pioneer Outdoor Services",
-    path: ROUTES.divisions.outdoorServices.root
+    path: "https://pioneeroutdoorservices.com"
   },
   {
     label: "Pioneer Productions",
@@ -70,7 +68,7 @@ function Footer() {
           <ul className="site-footer__links">
             {companyLinks.map((company) => (
               <li key={company.path}>
-                <Link to={company.path}>{company.label}</Link>
+                <a href={company.path}>{company.label}</a>
               </li>
             ))}
           </ul>
