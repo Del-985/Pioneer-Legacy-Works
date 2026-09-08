@@ -130,7 +130,7 @@ const categoryDescriptions: Record<FormCategory, string> = {
 
 const scopeLabels: Record<StoredFormScope, string> = {
   all: "All Pioneer",
-  landscaping: "Pioneer Landscaping",
+  landscaping: "Pioneer Outdoor Services",
   transport: "Pioneer Transport",
   productions: "Pioneer Productions"
 };
