@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 
+import { ROUTES } from "../../shared/constants/routes";
+
 const companyLinks = [
   {
-    label: "Pressure Washing & Landscaping",
-    path: "/landscaping"
+    label: "Pioneer Outdoor Services",
+    path: ROUTES.divisions.landscaping.root
   },
   {
     label: "Pioneer Productions",
