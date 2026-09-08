@@ -25,6 +25,14 @@ function getQueryString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function recordId(request: Request) {
+  const id = request.params.id;
+  if (!id || Array.isArray(id)) {
+    throw Object.assign(new Error("A valid form ID is required."), { statusCode: 400 });
+  }
+  return id;
+}
+
 function sanitizeFilename(filename: string) {
   return filename.replace(/[\r\n"\\/]/g, "_");
 }
@@ -117,7 +125,7 @@ export async function uploadFormFile(request: Request, response: Response) {
 }
 
 export async function downloadFormFile(request: Request, response: Response) {
-  const file = await prisma.formFile.findUnique({ where: { id: request.params.id } });
+  const file = await prisma.formFile.findUnique({ where: { id: recordId(request) } });
 
   if (!file) {
     response.status(404).json({ message: "Stored form not found." });
@@ -134,7 +142,7 @@ export async function downloadFormFile(request: Request, response: Response) {
 
 export async function deleteFormFile(request: Request, response: Response) {
   const file = await prisma.formFile.findUnique({
-    where: { id: request.params.id },
+    where: { id: recordId(request) },
     select: formFileSelect
   });
 
