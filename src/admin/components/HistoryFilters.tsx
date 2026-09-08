@@ -46,7 +46,7 @@ function HistoryFilters({
         >
           <option value="all">All businesses</option>
           <option value="shared">Shared administration</option>
-          <option value="landscaping">Landscaping</option>
+          <option value="outdoor-services">Outdoor Services</option>
           <option value="transport">Transport</option>
           <option value="productions">Productions</option>
         </select>

@@ -41,7 +41,7 @@ const businessNavigationItems: Array<{
 
 function getSelectedBusiness(pathname: string): BusinessSlug | null {
   const match = pathname.match(
-    /^\/admin\/businesses\/(landscaping|transport|productions)(?:\/|$)/
+    /^\/admin\/businesses\/(outdoor-services|transport|productions)(?:\/|$)/
   );
   return (match?.[1] as BusinessSlug | undefined) ?? null;
 }

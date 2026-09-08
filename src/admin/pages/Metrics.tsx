@@ -13,7 +13,7 @@ import type {
 } from "../../shared/types/metric";
 
 const businessRows: BusinessMetricSummary[] = [
-  { business: "landscaping", revenue: 12840, expenses: 4380, jobsCompleted: 34, estimatesSent: 41, conversionRate: 63, customerCount: 28 },
+  { business: "outdoor-services", revenue: 12840, expenses: 4380, jobsCompleted: 34, estimatesSent: 41, conversionRate: 63, customerCount: 28 },
   { business: "transport", revenue: 6200, expenses: 2710, jobsCompleted: 15, estimatesSent: 19, conversionRate: 58, customerCount: 12 },
   { business: "productions", revenue: 4100, expenses: 1650, jobsCompleted: 8, estimatesSent: 13, conversionRate: 46, customerCount: 9 }
 ];

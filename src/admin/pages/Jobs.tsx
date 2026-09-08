@@ -15,7 +15,7 @@ function toJob(record: AdminJob): JobRecord {
   return {
     id: record.id,
     jobNumber: record.number,
-    business: "landscaping",
+    business: "outdoor-services",
     customerName: record.customer.companyName || `${record.customer.firstName} ${record.customer.lastName}`,
     title: record.title,
     description: record.description ?? "",

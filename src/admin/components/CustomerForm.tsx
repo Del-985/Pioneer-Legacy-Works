@@ -10,7 +10,7 @@ interface CustomerFormProps {
 
 function CustomerForm({ onCancel, onSubmit }: CustomerFormProps) {
   const [name, setName] = useState("");
-  const [business, setBusiness] = useState<BusinessSlug>("landscaping");
+  const [business, setBusiness] = useState<BusinessSlug>("outdoor-services");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");

@@ -15,7 +15,7 @@ import type {
 const seedExpenses: Expense[] = [
   {
     id: "expense-1",
-    business: "landscaping",
+    business: "outdoor-services",
     vendor: "Regional Equipment Supply",
     description: "Commercial pressure washer replacement pump",
     amount: 875.42,

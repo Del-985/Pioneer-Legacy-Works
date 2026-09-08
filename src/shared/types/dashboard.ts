@@ -23,7 +23,7 @@ export type WeeklySnapshotSectionId =
   | "notifications"
   | "safety"
   | "upcoming"
-  | "landscaping"
+  | "outdoor-services"
   | "transport"
   | "productions"
   | "inventory";

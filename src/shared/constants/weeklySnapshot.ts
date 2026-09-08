@@ -15,7 +15,7 @@ export const weeklySnapshotSections: WeeklySnapshotSectionDefinition[] = [
   { id: "notifications", title: "Notifications", description: "Unread, urgent, and archived notification activity." },
   { id: "safety", title: "Safety", description: "Incidents, safety issues, and inspection status." },
   { id: "upcoming", title: "Upcoming", description: "Jobs and appointments scheduled for the next period." },
-  { id: "landscaping", title: "Landscaping", description: "Property-service activity and performance." },
+  { id: "outdoor-services", title: "Landscaping", description: "Property-service activity and performance." },
   { id: "transport", title: "Transport", description: "Deliveries, mileage, delays, and fleet activity." },
   { id: "productions", title: "Productions", description: "Projects, bookings, deliveries, and equipment activity." },
   { id: "inventory", title: "Inventory", description: "Low-stock items, assigned equipment, and maintenance needs." }

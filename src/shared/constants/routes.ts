@@ -9,7 +9,7 @@ export const ROUTES = {
   },
 
   divisions: {
-    landscaping: {
+    outdoorServices: {
       root: "/outdoor-services",
       services: "/outdoor-services/services",
       gallery: "/outdoor-services/gallery",
@@ -88,8 +88,8 @@ export type WebsiteRoute =
 export type AdminRoute =
   (typeof ROUTES.admin)[keyof typeof ROUTES.admin];
 
-export type LandscapingRoute =
-  (typeof ROUTES.divisions.landscaping)[keyof typeof ROUTES.divisions.landscaping];
+export type OutdoorServicesRoute =
+  (typeof ROUTES.divisions.outdoorServices)[keyof typeof ROUTES.divisions.outdoorServices];
 
 export type TransportRoute =
   (typeof ROUTES.divisions.transport)[keyof typeof ROUTES.divisions.transport];

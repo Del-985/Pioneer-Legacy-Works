@@ -1,0 +1,675 @@
+.outdoor-services-app {
+  --outdoor-services-green: #35513b;
+  --outdoor-services-green-dark: #223628;
+  --outdoor-services-green-soft: #6e8b63;
+  --outdoor-services-gold: #c89b3c;
+  --outdoor-services-cream: #f6ebdd;
+  --outdoor-services-sand: #e7d3bc;
+  --outdoor-services-ink: #2d2926;
+  min-height: 100vh;
+  background: #fffdf9;
+  color: var(--outdoor-services-ink);
+}
+
+.outdoor-services-app__header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  border-bottom: 1px solid rgba(74, 47, 36, 0.16);
+  background: rgba(255, 253, 249, 0.96);
+  backdrop-filter: blur(14px);
+}
+
+.outdoor-services-app__header-inner {
+  min-height: 84px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 2rem;
+}
+
+.outdoor-services-app__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--outdoor-services-green-dark);
+}
+
+.outdoor-services-app__brand-mark {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--outdoor-services-green-dark);
+  color: #fff;
+  font-family: Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 3px rgba(200, 155, 60, 0.35);
+}
+
+.outdoor-services-app__brand strong,
+.outdoor-services-app__brand small {
+  display: block;
+}
+
+.outdoor-services-app__brand strong {
+  font-family: Georgia, serif;
+  font-size: 1rem;
+}
+
+.outdoor-services-app__brand small {
+  margin-top: 0.15rem;
+  color: #74665d;
+  font-size: 0.68rem;
+}
+
+.outdoor-services-app__nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.outdoor-services-app__nav-link {
+  padding: 0.65rem 0.75rem;
+  border-radius: 999px;
+  color: #5f554f;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.outdoor-services-app__nav-link:hover,
+.outdoor-services-app__nav-link--active {
+  background: var(--outdoor-services-cream);
+  color: var(--outdoor-services-green-dark);
+}
+
+.outdoor-services-app__account {
+  padding: 0.72rem 1rem;
+  border-radius: 999px;
+  background: var(--outdoor-services-green-dark);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.outdoor-services-app__main {
+  min-height: 60vh;
+}
+
+.outdoor-services-eyebrow {
+  color: var(--outdoor-services-gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.outdoor-services-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 6.5rem 0 5.5rem;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(200, 155, 60, 0.22), transparent 28%),
+    linear-gradient(135deg, var(--outdoor-services-green-dark), var(--outdoor-services-green));
+  color: #fff;
+}
+
+.outdoor-services-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -8% -160px auto;
+  width: 440px;
+  height: 440px;
+  border: 80px solid rgba(255, 255, 255, 0.035);
+  border-radius: 50%;
+}
+
+.outdoor-services-hero__layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
+  gap: 4rem;
+  align-items: center;
+}
+
+.outdoor-services-hero h1,
+.outdoor-services-section h2,
+.outdoor-services-customer-hub h2,
+.outdoor-services-cta h2,
+.outdoor-services-module-page h1,
+.outdoor-services-login-page h1 {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.outdoor-services-hero h1 {
+  max-width: 760px;
+  margin: 0.85rem 0 1.35rem;
+  font-size: clamp(3rem, 6vw, 5.7rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.outdoor-services-hero__description {
+  max-width: 650px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.12rem;
+  line-height: 1.8;
+}
+
+.outdoor-services-hero__actions,
+.outdoor-services-module-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.outdoor-services-button {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.outdoor-services-button--primary {
+  background: var(--outdoor-services-gold);
+  color: #2f241f;
+}
+
+.outdoor-services-button--secondary {
+  border-color: rgba(255, 255, 255, 0.38);
+  background: rgba(255, 255, 255, 0.07);
+  color: inherit;
+}
+
+.outdoor-services-module-page .outdoor-services-button--secondary,
+.outdoor-services-login-page .outdoor-services-button--secondary {
+  border-color: var(--outdoor-services-sand);
+  background: #fff;
+  color: var(--outdoor-services-green-dark);
+}
+
+.outdoor-services-button--light {
+  background: #fff;
+  color: var(--outdoor-services-green-dark);
+}
+
+.outdoor-services-hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin-top: 2.4rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.outdoor-services-hero__trust span::before {
+  content: "•";
+  margin-right: 0.45rem;
+  color: var(--outdoor-services-gold);
+}
+
+.outdoor-services-hero__panel {
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(16px);
+}
+
+.outdoor-services-hero__panel-label {
+  color: var(--outdoor-services-gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.outdoor-services-hero__panel h2 {
+  margin: 0.45rem 0 1.1rem;
+  font-family: Georgia, serif;
+  font-size: 1.8rem;
+}
+
+.outdoor-services-hero__panel-links {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.outdoor-services-hero__panel-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.outdoor-services-hero__panel-links a:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateX(4px);
+}
+
+.outdoor-services-hero__panel-links strong,
+.outdoor-services-hero__panel-links small {
+  display: block;
+}
+
+.outdoor-services-hero__panel-links small {
+  margin-top: 0.25rem;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.outdoor-services-section,
+.outdoor-services-customer-hub {
+  padding: 5.5rem 0;
+}
+
+.outdoor-services-section--sand {
+  background: linear-gradient(180deg, #f8efe4, #f1dfca);
+}
+
+.outdoor-services-section__heading {
+  max-width: 760px;
+  margin-bottom: 2.5rem;
+}
+
+.outdoor-services-section__heading h2,
+.outdoor-services-customer-hub h2,
+.outdoor-services-process h2,
+.outdoor-services-cta h2 {
+  margin: 0.55rem 0 1rem;
+  color: var(--outdoor-services-green-dark);
+  font-size: clamp(2.2rem, 4vw, 3.7rem);
+  line-height: 1.06;
+}
+
+.outdoor-services-section__heading > p:last-child,
+.outdoor-services-process__copy > p:last-child,
+.outdoor-services-customer-hub__layout > div > p:last-child {
+  color: #756861;
+  line-height: 1.75;
+}
+
+.outdoor-services-service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.outdoor-services-service-card {
+  position: relative;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  border: 1px solid rgba(74, 47, 36, 0.13);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 12px 36px rgba(74, 47, 36, 0.08);
+}
+
+.outdoor-services-service-card__number {
+  color: var(--outdoor-services-gold);
+  font-family: Georgia, serif;
+  font-size: 1.5rem;
+}
+
+.outdoor-services-service-card h3 {
+  margin: 2.2rem 0 0.8rem;
+  color: var(--outdoor-services-green-dark);
+  font-family: Georgia, serif;
+  font-size: 1.45rem;
+}
+
+.outdoor-services-service-card p {
+  color: #756861;
+  line-height: 1.65;
+}
+
+.outdoor-services-service-card a {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  color: var(--outdoor-services-green);
+  font-weight: 800;
+}
+
+.outdoor-services-process,
+.outdoor-services-customer-hub__layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.outdoor-services-process__steps {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.outdoor-services-process__steps li {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.outdoor-services-process__steps strong {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--outdoor-services-green-dark);
+  color: #fff;
+}
+
+.outdoor-services-process__steps b,
+.outdoor-services-process__steps small {
+  display: block;
+}
+
+.outdoor-services-process__steps small {
+  margin-top: 0.2rem;
+  color: #776a62;
+}
+
+.outdoor-services-customer-hub {
+  background: #fffdf9;
+}
+
+.outdoor-services-customer-hub__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.outdoor-services-customer-hub__cards a {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.15rem;
+  border: 1px solid rgba(74, 47, 36, 0.13);
+  border-radius: 20px;
+  background: var(--outdoor-services-cream);
+  color: var(--outdoor-services-green-dark);
+}
+
+.outdoor-services-customer-hub__cards span {
+  color: #77685e;
+  font-size: 0.76rem;
+}
+
+.outdoor-services-cta {
+  padding: 4rem 0;
+  background: var(--outdoor-services-green-dark);
+  color: #fff;
+}
+
+.outdoor-services-cta__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.outdoor-services-cta h2 {
+  color: #fff;
+}
+
+.outdoor-services-module-page {
+  min-height: 60vh;
+  display: grid;
+  align-items: center;
+  padding: 6rem 0;
+  background: linear-gradient(180deg, #fffdf9, var(--outdoor-services-cream));
+}
+
+.outdoor-services-module-page__content {
+  max-width: 820px;
+}
+
+.outdoor-services-module-page h1,
+.outdoor-services-login-page h1 {
+  margin: 0.7rem 0 1rem;
+  color: var(--outdoor-services-green-dark);
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  line-height: 1.02;
+}
+
+.outdoor-services-module-page__content > p:last-of-type {
+  max-width: 700px;
+  color: #756861;
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.outdoor-services-login-page {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #fffdf9, var(--outdoor-services-cream));
+}
+
+.outdoor-services-login-page__layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(360px, 0.75fr);
+  gap: 4rem;
+  align-items: center;
+}
+
+.outdoor-services-login-page__intro > p:last-of-type,
+.outdoor-services-login-page__intro li {
+  color: #74675f;
+  line-height: 1.7;
+}
+
+.outdoor-services-login-page__intro ul {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 1.5rem;
+  padding-left: 1.1rem;
+}
+
+.outdoor-services-login-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(74, 47, 36, 0.14);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 22px 60px rgba(74, 47, 36, 0.12);
+}
+
+.outdoor-services-login-card h2 {
+  margin: 0.25rem 0 0.35rem;
+  color: var(--outdoor-services-green-dark);
+  font-family: Georgia, serif;
+  font-size: 2rem;
+}
+
+.outdoor-services-login-card__eyebrow {
+  color: var(--outdoor-services-gold);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.outdoor-services-login-card > div > p:last-child,
+.outdoor-services-login-card__footer {
+  color: #776961;
+  font-size: 0.82rem;
+}
+
+.outdoor-services-login-card > label {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.outdoor-services-login-card > label span {
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.outdoor-services-login-card input[type="email"],
+.outdoor-services-login-card input[type="password"] {
+  min-height: 46px;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--outdoor-services-sand);
+  border-radius: 12px;
+  background: #fffdf9;
+}
+
+.outdoor-services-login-card__options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.outdoor-services-login-card__remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.76rem;
+}
+
+.outdoor-services-login-card__options button {
+  border: 0;
+  background: transparent;
+  color: var(--outdoor-services-green);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.outdoor-services-login-card__message {
+  padding: 0.75rem;
+  border-radius: 12px;
+  background: var(--outdoor-services-cream);
+  color: var(--outdoor-services-green-dark);
+  font-size: 0.78rem;
+}
+
+.outdoor-services-login-card__footer a {
+  color: var(--outdoor-services-green);
+  font-weight: 800;
+}
+
+.outdoor-services-app__footer {
+  padding: 2.2rem 0;
+  background: #1d2c21;
+  color: #fff;
+}
+
+.outdoor-services-app__footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.outdoor-services-app__footer p {
+  margin-top: 0.3rem;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.78rem;
+}
+
+.outdoor-services-app__footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.outdoor-services-app__footer-links a {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+@media (max-width: 1050px) {
+  .outdoor-services-app__header-inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .outdoor-services-app__nav {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.7rem;
+  }
+
+  .outdoor-services-hero__layout,
+  .outdoor-services-process,
+  .outdoor-services-customer-hub__layout,
+  .outdoor-services-login-page__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .outdoor-services-service-grid,
+  .outdoor-services-customer-hub__cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .outdoor-services-app__header-inner {
+    min-height: 72px;
+    gap: 0.8rem;
+  }
+
+  .outdoor-services-app__brand small {
+    display: none;
+  }
+
+  .outdoor-services-app__account {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.72rem;
+  }
+
+  .outdoor-services-hero {
+    padding: 4.5rem 0 3.5rem;
+  }
+
+  .outdoor-services-hero__layout {
+    gap: 2rem;
+  }
+
+  .outdoor-services-hero h1 {
+    font-size: clamp(2.7rem, 14vw, 4rem);
+  }
+
+  .outdoor-services-section,
+  .outdoor-services-customer-hub,
+  .outdoor-services-login-page,
+  .outdoor-services-module-page {
+    padding: 4rem 0;
+  }
+
+  .outdoor-services-cta__content,
+  .outdoor-services-app__footer-inner,
+  .outdoor-services-login-card__options {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .outdoor-services-button {
+    width: 100%;
+  }
+}

@@ -1,7 +1,7 @@
 import { apiConfig, apiRequest, getAccessToken } from "./client";
 
 export type StoredFormCategory = "customer" | "operations" | "finance" | "internal";
-export type StoredFormScope = "all" | "landscaping" | "transport" | "productions";
+export type StoredFormScope = "all" | "outdoor-services" | "transport" | "productions";
 
 export interface StoredFormFile {
   id: string;

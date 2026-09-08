@@ -11,7 +11,7 @@ import type { BusinessSlug } from "../../shared/types/business";
 
 function getSelectedBusiness(pathname: string): BusinessSlug | "all" {
   const match = pathname.match(
-    /^\/admin\/businesses\/(landscaping|transport|productions)(?:\/|$)/
+    /^\/admin\/businesses\/(outdoor-services|transport|productions)(?:\/|$)/
   );
   return (match?.[1] as BusinessSlug | undefined) ?? "all";
 }

@@ -13,5 +13,5 @@ export interface FormDefinition {
   path: string;
   category: FormCategory;
   availability: FormAvailability;
-  businessScope: "all" | "landscaping" | "transport" | "productions";
+  businessScope: "all" | "outdoor-services" | "transport" | "productions";
 }

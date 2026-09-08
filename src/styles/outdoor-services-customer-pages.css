@@ -1,0 +1,375 @@
+.outdoor-services-form-page,
+.outdoor-services-contact-page,
+.outdoor-services-gallery-page {
+  padding: clamp(3rem, 6vw, 6rem) 0;
+  background: #f7f1e8;
+}
+
+.outdoor-services-form-page__layout,
+.outdoor-services-contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.outdoor-services-form-page__intro,
+.outdoor-services-page-heading {
+  max-width: 760px;
+}
+
+.outdoor-services-form-page__intro h1,
+.outdoor-services-page-heading h1,
+.outdoor-services-form-success h1,
+.outdoor-services-review-card h1 {
+  margin: 0.4rem 0 0.8rem;
+  color: #2f412b;
+  font-size: clamp(2rem, 4vw, 3.7rem);
+  line-height: 1.03;
+}
+
+.outdoor-services-form-page__intro p,
+.outdoor-services-page-heading p,
+.outdoor-services-form-success p,
+.outdoor-services-review-card > p {
+  color: #655d55;
+  line-height: 1.7;
+}
+
+.outdoor-services-form-page__intro > a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #a6532d;
+  font-weight: 800;
+}
+
+.outdoor-services-customer-form,
+.outdoor-services-review-card,
+.outdoor-services-form-success,
+.outdoor-services-contact-details {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid #e7d3bc;
+  border-radius: 22px;
+  background: #fffdf9;
+  box-shadow: 0 18px 45px rgba(74, 47, 36, 0.1);
+}
+
+.outdoor-services-customer-form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.outdoor-services-customer-form fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.outdoor-services-customer-form legend {
+  width: 100%;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid #e7d3bc;
+  color: #4a2f24;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.outdoor-services-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.outdoor-services-form-grid label,
+.outdoor-services-customer-form > label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.outdoor-services-form-grid label > span,
+.outdoor-services-customer-form label > span {
+  color: #3d352f;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.outdoor-services-form-grid input,
+.outdoor-services-form-grid select,
+.outdoor-services-form-grid textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.75rem 0.8rem;
+  border: 1px solid #d9c7b2;
+  border-radius: 10px;
+  background: #fff;
+  color: #2d2926;
+  font: inherit;
+}
+
+.outdoor-services-form-grid textarea {
+  resize: vertical;
+}
+
+.outdoor-services-form-grid input:focus,
+.outdoor-services-form-grid select:focus,
+.outdoor-services-form-grid textarea:focus {
+  outline: 3px solid rgba(200, 155, 60, 0.22);
+  border-color: #a6532d;
+}
+
+.outdoor-services-form-grid__wide {
+  grid-column: 1 / -1;
+}
+
+.outdoor-services-form-consent {
+  display: grid !important;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.7rem !important;
+  padding: 0.9rem;
+  border-radius: 10px;
+  background: #f6ebdd;
+}
+
+.outdoor-services-form-consent input {
+  margin-top: 0.2rem;
+}
+
+.outdoor-services-form-actions,
+.outdoor-services-form-success__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.outdoor-services-form-status {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(166, 83, 45, 0.25);
+  border-radius: 10px;
+  background: #f6ebdd;
+  color: #4a2f24;
+}
+
+.outdoor-services-review-card,
+.outdoor-services-form-success {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.outdoor-services-review-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.outdoor-services-review-list > div {
+  padding: 1rem;
+  border: 1px solid #e7d3bc;
+  border-radius: 12px;
+  background: #fffaf4;
+}
+
+.outdoor-services-review-list dt {
+  color: #a6532d;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.outdoor-services-review-list dd {
+  margin: 0.45rem 0 0;
+  color: #2d2926;
+  line-height: 1.55;
+}
+
+.outdoor-services-page-heading {
+  margin-bottom: 2rem;
+}
+
+.outdoor-services-page-heading--split {
+  max-width: none;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.outdoor-services-page-heading--split > div {
+  max-width: 760px;
+}
+
+.outdoor-services-contact-details {
+  display: grid;
+  gap: 1rem;
+}
+
+.outdoor-services-contact-details > div:not(.outdoor-services-contact-details__actions) {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e7d3bc;
+}
+
+.outdoor-services-contact-details span,
+.outdoor-services-contact-details strong {
+  display: block;
+}
+
+.outdoor-services-contact-details span {
+  color: #a6532d;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.outdoor-services-contact-details strong {
+  margin-top: 0.35rem;
+  color: #3d352f;
+  line-height: 1.5;
+}
+
+.outdoor-services-contact-details__actions {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.outdoor-services-gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+}
+
+.outdoor-services-gallery-filter {
+  min-height: 40px;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid #d9c7b2;
+  border-radius: 999px;
+  background: #fffdf9;
+  color: #4a2f24;
+  font-weight: 800;
+}
+
+.outdoor-services-gallery-filter--active {
+  border-color: #a6532d;
+  background: #a6532d;
+  color: #fff;
+}
+
+.outdoor-services-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.outdoor-services-gallery-card {
+  overflow: hidden;
+  border: 1px solid #e7d3bc;
+  border-radius: 18px;
+  background: #fffdf9;
+  box-shadow: 0 12px 30px rgba(74, 47, 36, 0.08);
+}
+
+.outdoor-services-gallery-card__image {
+  min-height: 230px;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.outdoor-services-gallery-card__image--1 { background: linear-gradient(135deg, #60734d, #314229); }
+.outdoor-services-gallery-card__image--2 { background: linear-gradient(135deg, #8f623f, #4a2f24); }
+.outdoor-services-gallery-card__image--3 { background: linear-gradient(135deg, #c89b3c, #8d5b2f); }
+.outdoor-services-gallery-card__image--4 { background: linear-gradient(135deg, #8c765f, #4e4338); }
+
+.outdoor-services-gallery-card__content {
+  padding: 1rem;
+}
+
+.outdoor-services-gallery-card__content p {
+  margin: 0 0 0.35rem;
+  color: #a6532d;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.outdoor-services-gallery-card__content h2 {
+  margin: 0;
+  color: #3d352f;
+  font-size: 1.15rem;
+}
+
+.outdoor-services-gallery-card__content span {
+  display: block;
+  margin-top: 0.55rem;
+  color: #655d55;
+  line-height: 1.55;
+}
+
+.outdoor-services-gallery-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 18px;
+  background: #4a2f24;
+  color: #fff;
+}
+
+.outdoor-services-gallery-note h2 {
+  margin: 0.35rem 0;
+}
+
+.outdoor-services-gallery-note p:last-child {
+  margin: 0;
+  color: #eadfce;
+}
+
+@media (max-width: 980px) {
+  .outdoor-services-form-page__layout,
+  .outdoor-services-contact-layout,
+  .outdoor-services-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .outdoor-services-page-heading--split,
+  .outdoor-services-gallery-note {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .outdoor-services-form-grid,
+  .outdoor-services-review-list {
+    grid-template-columns: 1fr;
+  }
+
+  .outdoor-services-form-grid__wide {
+    grid-column: auto;
+  }
+
+  .outdoor-services-form-actions,
+  .outdoor-services-form-success__actions {
+    justify-content: stretch;
+  }
+
+  .outdoor-services-form-actions > *,
+  .outdoor-services-form-success__actions > * {
+    width: 100%;
+  }
+}

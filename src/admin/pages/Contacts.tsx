@@ -15,7 +15,7 @@ import type {
 const initialContacts: ContactRecord[] = [
   {
     id: "contact-1",
-    business: "landscaping",
+    business: "outdoor-services",
     firstName: "Mason",
     lastName: "Reed",
     company: "Northshore Materials",

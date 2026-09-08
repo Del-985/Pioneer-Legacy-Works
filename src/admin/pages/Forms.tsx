@@ -130,7 +130,7 @@ const categoryDescriptions: Record<FormCategory, string> = {
 
 const scopeLabels: Record<StoredFormScope, string> = {
   all: "All Pioneer",
-  landscaping: "Pioneer Outdoor Services",
+  "outdoor-services": "Pioneer Outdoor Services",
   transport: "Pioneer Transport",
   productions: "Pioneer Productions"
 };
@@ -165,7 +165,7 @@ function Forms() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState<FormCategory>("operations");
-  const [businessScope, setBusinessScope] = useState<StoredFormScope>("landscaping");
+  const [businessScope, setBusinessScope] = useState<StoredFormScope>("outdoor-services");
   const [version, setVersion] = useState("1.0");
   const [file, setFile] = useState<File | null>(null);
   const [fileInputKey, setFileInputKey] = useState(0);

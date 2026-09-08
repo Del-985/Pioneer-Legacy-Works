@@ -20,7 +20,7 @@ function EstimateForm({ estimate, onSubmit, onCancel }: EstimateFormProps) {
   const [customerName, setCustomerName] = useState(estimate?.customerName ?? "");
   const [customerEmail, setCustomerEmail] = useState(estimate?.customerEmail ?? "");
   const [title, setTitle] = useState(estimate?.title ?? "");
-  const [business, setBusiness] = useState<BusinessSlug>(estimate?.business ?? "landscaping");
+  const [business, setBusiness] = useState<BusinessSlug>(estimate?.business ?? "outdoor-services");
   const [expirationDate, setExpirationDate] = useState(estimate?.expirationDate ?? "");
   const [discount, setDiscount] = useState(estimate?.discount ?? 0);
   const [taxRate, setTaxRate] = useState(estimate?.taxRate ?? 0);
@@ -90,7 +90,7 @@ function EstimateForm({ estimate, onSubmit, onCancel }: EstimateFormProps) {
         <label>
           <span>Business</span>
           <select value={business} onChange={(event) => setBusiness(event.target.value as BusinessSlug)}>
-            <option value="landscaping">Landscaping</option>
+            <option value="outdoor-services">Outdoor Services</option>
             <option value="transport">Transport</option>
             <option value="productions">Productions</option>
           </select>

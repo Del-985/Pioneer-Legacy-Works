@@ -13,7 +13,7 @@ import type {
 const mockEvents: ScheduleEvent[] = [
   {
     id: "event-1",
-    business: "landscaping",
+    business: "outdoor-services",
     title: "Driveway pressure washing",
     customerName: "Sample Customer",
     date: "2026-07-15",
@@ -52,7 +52,7 @@ const mockEvents: ScheduleEvent[] = [
 const mockRequests: ScheduleRequest[] = [
   {
     id: "request-1",
-    business: "landscaping",
+    business: "outdoor-services",
     customerName: "Example Homeowner",
     requestedDate: "2026-07-20",
     requestedTime: "09:00",

@@ -8,7 +8,7 @@ The architecture allows each division to maintain its own branding, services, pa
 
 | Division | Status | Scope |
 | --- | --- | --- |
-| Pioneer Pressure Washing & Landscaping | Active | Exterior cleaning, landscaping, property maintenance, scheduling, estimates, customers, expenses, documents, and operational reporting |
+| Pioneer Outdoor Services | Active | Exterior cleaning, landscaping, property maintenance, scheduling, estimates, customers, expenses, documents, and operational reporting |
 | Pioneer Transport | Coming soon | Transportation and logistics services |
 | Pioneer Productions | Coming soon | Creative production services for businesses, organizations, events, and individuals |
 
@@ -64,7 +64,7 @@ The project is being built as both a public-facing website and an internal busin
 │   ├── website/              # Public Pioneer Legacy Works website
 │   ├── admin/                # Central administration panel
 │   ├── divisions/
-│   │   └── landscaping/      # Pioneer Landscaping division site
+│   │   └── outdoor-services/      # Pioneer Outdoor Services division site
 │   ├── shared/               # Shared components, constants, types, and utilities
 │   ├── services/             # Frontend service and API integrations
 │   ├── styles/               # Shared application styling

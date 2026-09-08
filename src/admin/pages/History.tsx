@@ -12,7 +12,7 @@ import type {
 const historyRecords: HistoryRecord[] = [
   {
     id: "history-1",
-    business: "landscaping",
+    business: "outdoor-services",
     category: "estimate",
     severity: "success",
     title: "Estimate approved",

@@ -1,1 +1,0 @@
-export { landscapingRoutes } from "./routes";

@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import { prisma } from "../lib/prisma.js";
 
 const allowedCategories = new Set(["customer", "operations", "finance", "internal"]);
-const allowedScopes = new Set(["all", "landscaping", "transport", "productions"]);
+const allowedScopes = new Set(["all", "outdoor-services", "transport", "productions"]);
 const maxFileSizeBytes = 15 * 1024 * 1024;
 
 const formFileSelect = {

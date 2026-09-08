@@ -8,7 +8,7 @@ const companies = [
     name: "Pioneer Outdoor Services",
     description:
       "Landscaping, lawn care, exterior cleaning, snow and ice service, and dependable property maintenance for residential and commercial customers.",
-    path: ROUTES.divisions.landscaping.root,
+    path: ROUTES.divisions.outdoorServices.root,
     label: "Outdoor & Property Services"
   },
   {

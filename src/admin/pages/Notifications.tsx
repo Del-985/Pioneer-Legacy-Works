@@ -14,7 +14,7 @@ import type {
 const initialNotifications: AdminNotification[] = [
   {
     id: "notification-1",
-    business: "landscaping",
+    business: "outdoor-services",
     category: "schedule",
     priority: "urgent",
     title: "Schedule request needs review",
@@ -29,7 +29,7 @@ const initialNotifications: AdminNotification[] = [
   },
   {
     id: "notification-2",
-    business: "landscaping",
+    business: "outdoor-services",
     category: "expense",
     priority: "high",
     title: "Expense over $500 recorded",

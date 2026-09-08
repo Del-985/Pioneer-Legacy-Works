@@ -16,7 +16,7 @@ const sections: DebugSection[] = [
     label: "Apps",
     links: [
       { label: "Website", path: "/", matchPrefix: false },
-      { label: "Landscaping", path: "/landscaping", matchPrefix: true },
+      { label: "Outdoor Services", path: "/outdoor-services", matchPrefix: true },
       { label: "Transport", path: "/transport", matchPrefix: true },
       { label: "Productions", path: "/productions", matchPrefix: true },
       { label: "Admin", path: "/admin", matchPrefix: true }
@@ -32,20 +32,20 @@ const sections: DebugSection[] = [
     ]
   },
   {
-    label: "Landscaping",
+    label: "Outdoor Services",
     links: [
-      { label: "Home", path: "/landscaping" },
-      { label: "Services", path: "/landscaping/services" },
-      { label: "Gallery", path: "/landscaping/gallery" },
-      { label: "Quote", path: "/landscaping/quote" },
-      { label: "Request", path: "/landscaping/request" },
-      { label: "Contact", path: "/landscaping/contact" },
-      { label: "Login", path: "/landscaping/login" },
-      { label: "Register", path: "/landscaping/register" },
-      { label: "Forgot Password", path: "/landscaping/forgot-password" },
-      { label: "Reset Password", path: "/landscaping/reset-password" },
-      { label: "Verify Email", path: "/landscaping/verify-email" },
-      { label: "Customer Dashboard", path: "/landscaping/account" }
+      { label: "Home", path: "/outdoor-services" },
+      { label: "Services", path: "/outdoor-services/services" },
+      { label: "Gallery", path: "/outdoor-services/gallery" },
+      { label: "Quote", path: "/outdoor-services/quote" },
+      { label: "Request", path: "/outdoor-services/request" },
+      { label: "Contact", path: "/outdoor-services/contact" },
+      { label: "Login", path: "/outdoor-services/login" },
+      { label: "Register", path: "/outdoor-services/register" },
+      { label: "Forgot Password", path: "/outdoor-services/forgot-password" },
+      { label: "Reset Password", path: "/outdoor-services/reset-password" },
+      { label: "Verify Email", path: "/outdoor-services/verify-email" },
+      { label: "Customer Dashboard", path: "/outdoor-services/account" }
     ]
   },
   {

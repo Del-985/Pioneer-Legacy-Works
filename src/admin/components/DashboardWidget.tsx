@@ -113,7 +113,7 @@ const weeklySectionDisplays: Record<WeeklySnapshotSectionId, WeeklySectionDispla
     ],
     path: ROUTES.admin.calendar
   },
-  landscaping: {
+  "outdoor-services": {
     metrics: [
       { value: "0", label: "Jobs" },
       { value: "$0", label: "Revenue" },

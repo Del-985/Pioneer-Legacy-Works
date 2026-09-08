@@ -90,7 +90,7 @@ const metricPlaceholders = [
 ];
 
 function isBusinessSlug(value: string | undefined): value is BusinessSlug {
-  return value === "landscaping" || value === "transport" || value === "productions";
+  return value === "outdoor-services" || value === "transport" || value === "productions";
 }
 
 function BusinessPanel() {

@@ -17,7 +17,7 @@ function toCustomer(record: AdminCustomer): Customer {
 
   return {
     id: record.id,
-    business: "landscaping",
+    business: "outdoor-services",
     name: `${record.firstName} ${record.lastName}`,
     company: record.companyName ?? undefined,
     email: record.email,

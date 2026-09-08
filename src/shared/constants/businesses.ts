@@ -24,13 +24,13 @@ const sharedAdminModules: BusinessDefinition["enabledModules"] = [
 
 export const businesses: BusinessDefinition[] = [
   {
-    id: "pioneer-landscaping",
-    slug: "landscaping",
+    id: "pioneer-outdoor-services",
+    slug: "outdoor-services",
     name: "Pioneer Outdoor Services",
     shortName: "Pioneer Outdoor Services",
     description:
       "Landscaping, lawn care, exterior cleaning, snow and ice service, property maintenance, and related outdoor services for residential and commercial customers.",
-    route: ROUTES.divisions.landscaping.root,
+    route: ROUTES.divisions.outdoorServices.root,
     status: "active",
     enabledModules: [...sharedAdminModules],
     theme: {
@@ -38,7 +38,7 @@ export const businesses: BusinessDefinition[] = [
       secondaryColor: "#17382b",
       accentColor: "#c9a227"
     },
-    logoPath: "/images/businesses/landscaping-logo.svg"
+    logoPath: "/images/businesses/outdoor-services-logo.svg"
   },
   {
     id: "pioneer-transport",

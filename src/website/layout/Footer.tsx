@@ -5,7 +5,7 @@ import { ROUTES } from "../../shared/constants/routes";
 const companyLinks = [
   {
     label: "Pioneer Outdoor Services",
-    path: ROUTES.divisions.landscaping.root
+    path: ROUTES.divisions.outdoorServices.root
   },
   {
     label: "Pioneer Productions",

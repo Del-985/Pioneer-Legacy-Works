@@ -21,7 +21,7 @@ function toEstimate(quote: AdminQuote): Estimate {
   return {
     id: quote.id,
     estimateNumber: quote.number,
-    business: "landscaping",
+    business: "outdoor-services",
     customerName: quote.customer.companyName || `${quote.customer.firstName} ${quote.customer.lastName}`,
     customerEmail: quote.customer.email,
     title: quote.title,

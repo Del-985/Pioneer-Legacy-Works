@@ -1,6 +1,6 @@
 # Pioneer Legacy Works Product Roadmap
 
-This roadmap turns the platform vision into ordered, testable delivery milestones. It prioritizes a reliable operational core for Pioneer Pressure Washing & Landscaping before expanding the ERP, customer portal, and additional divisions.
+This roadmap turns the platform vision into ordered, testable delivery milestones. It prioritizes a reliable operational core for Pioneer Outdoor Services before expanding the ERP, customer portal, and additional divisions.
 
 ## Status legend
 
@@ -13,7 +13,7 @@ This roadmap turns the platform vision into ordered, testable delivery milestone
 
 As of July 2026, the repository contains:
 
-- A React public website, landscaping division site, and administration interface
+- A React public website, Outdoor Services division site, and administration interface
 - An Express, TypeScript, Prisma, and PostgreSQL backend foundation
 - Customer registration, login, JWT authentication, and current-user lookup
 - Transactional quote and service-request intake
@@ -58,7 +58,7 @@ The public intake path is close to its first deployable state. Most administrati
 
 **Status: Complete**
 
-This milestone makes submitted leads usable by the landscaping team.
+This milestone makes submitted leads usable by the Pioneer Outdoor Services team.
 
 ### API scope
 

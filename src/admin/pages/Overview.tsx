@@ -19,7 +19,7 @@ const emptyFinancialSnapshot: FinancialSnapshot = {
 };
 
 const businessFinancials: Record<BusinessSlug, FinancialSnapshot> = {
-  landscaping: { ...emptyFinancialSnapshot },
+  "outdoor-services": { ...emptyFinancialSnapshot },
   productions: { ...emptyFinancialSnapshot },
   transport: { ...emptyFinancialSnapshot }
 };

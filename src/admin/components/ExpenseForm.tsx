@@ -13,7 +13,7 @@ const categories: ExpenseCategory[] = ["equipment", "fuel", "materials", "mainte
 
 function ExpenseForm({ onSubmit, onCancel }: ExpenseFormProps) {
   const [draft, setDraft] = useState<ExpenseDraft>({
-    business: "landscaping",
+    business: "outdoor-services",
     vendor: "",
     description: "",
     amount: 0,

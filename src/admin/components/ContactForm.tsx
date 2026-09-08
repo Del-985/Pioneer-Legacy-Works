@@ -71,7 +71,7 @@ function ContactForm({ onSubmit, onCancel }: ContactFormProps) {
           <span>Business</span>
           <select value={business} onChange={(event) => setBusiness(event.target.value as BusinessSlug | "shared")}>
             <option value="shared">Shared / Corporate</option>
-            <option value="landscaping">Landscaping</option>
+            <option value="outdoor-services">Outdoor Services</option>
             <option value="transport">Transport</option>
             <option value="productions">Productions</option>
           </select>

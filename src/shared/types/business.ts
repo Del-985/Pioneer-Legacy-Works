@@ -1,5 +1,5 @@
 export type BusinessSlug =
-  | "landscaping"
+  | "outdoor-services"
   | "transport"
   | "productions";
 
