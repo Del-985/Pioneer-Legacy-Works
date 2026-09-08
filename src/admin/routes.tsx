@@ -3,6 +3,7 @@ import type { RouteObject } from "react-router-dom";
 import RequireAdmin from "./auth/RequireAdmin";
 import AdminLayout from "./layout/AdminLayout";
 import AdminLogin from "./pages/AdminLogin";
+import BusinessPanel from "./pages/BusinessPanel";
 import Calendar from "./pages/Calendar";
 import Contacts from "./pages/Contacts";
 import Customers from "./pages/Customers";
@@ -43,7 +44,9 @@ export const adminRoutes: RouteObject[] = [
       { path: "history", element: <History /> },
       { path: "metrics", element: <Metrics /> },
       { path: "notifications", element: <Notifications /> },
-      { path: "settings", element: <Settings /> }
+      { path: "settings", element: <Settings /> },
+      { path: "businesses/:businessSlug", element: <BusinessPanel /> },
+      { path: "businesses/:businessSlug/:section", element: <BusinessPanel /> }
     ]
   }
 ];
