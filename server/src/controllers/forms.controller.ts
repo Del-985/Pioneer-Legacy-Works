@@ -98,7 +98,7 @@ export async function uploadFormFile(request: Request, response: Response) {
       originalFilename,
       mimeType: "application/pdf",
       sizeBytes: fileBuffer.length,
-      content: fileBuffer,
+      content: Uint8Array.from(fileBuffer),
       uploadedById: request.auth?.sub ?? null
     },
     select: formFileSelect
