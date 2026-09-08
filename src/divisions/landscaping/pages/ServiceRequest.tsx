@@ -118,8 +118,8 @@ function ServiceRequest() {
           <p className="landscaping-eyebrow">Request Received</p>
           <h1>We have your service request.</h1>
           <p>
-            Your request has been transmitted and saved. The landscaping team can
-            now review it and contact you about scheduling.
+            Your request has been transmitted and saved. The Pioneer Outdoor Services
+            team can now review it and contact you about scheduling.
           </p>
           <div className="landscaping-form-success__actions">
             <button
@@ -219,7 +219,7 @@ function ServiceRequest() {
 
           <label className="landscaping-form-consent">
             <input required type="checkbox" checked={data.consent} onChange={(event) => update("consent", event.target.checked)} />
-            <span>I authorize Pioneer Landscaping Services to contact me about this request. I understand this submission does not guarantee scheduling or establish a service contract.</span>
+            <span>I authorize Pioneer Outdoor Services to contact me about this request. I understand this submission does not guarantee scheduling or establish a service contract.</span>
           </label>
 
           <div className="landscaping-form-actions">
