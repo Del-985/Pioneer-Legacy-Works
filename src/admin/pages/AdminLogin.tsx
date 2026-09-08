@@ -37,6 +37,7 @@ function AdminLogin() {
   const [bootstrapSecret, setBootstrapSecret] = useState("");
   const [bootstrapStatus, setBootstrapStatus] =
     useState<AdminBootstrapStatus | null>(null);
+  const [bootstrapStatusFailed, setBootstrapStatusFailed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -46,10 +47,13 @@ function AdminLogin() {
 
     getAdminBootstrapStatus()
       .then((status) => {
-        if (mounted) setBootstrapStatus(status);
+        if (!mounted) return;
+        setBootstrapStatus(status);
+        setBootstrapStatusFailed(false);
       })
       .catch(() => {
-        // Login remains usable if the bootstrap endpoint is disabled or unavailable.
+        if (!mounted) return;
+        setBootstrapStatusFailed(true);
       });
 
     return () => {
@@ -105,6 +109,7 @@ function AdminLogin() {
   };
 
   const bootstrapMode = mode === "bootstrap";
+  const showBootstrapOption = bootstrapStatus?.adminExists !== true;
 
   return (
     <main className="admin-login-page">
@@ -143,10 +148,30 @@ function AdminLogin() {
             </p>
           ) : null}
 
-          {bootstrapStatus?.enabled && !bootstrapStatus.configured ? (
+          {bootstrapMode && bootstrapStatus?.adminExists ? (
             <p className="admin-login-card__notice" role="status">
-              First-administrator setup is enabled on the API, but production
-              setup requires an ADMIN_BOOTSTRAP_SECRET.
+              An administrator account already exists. Use staff sign in instead.
+            </p>
+          ) : null}
+
+          {bootstrapMode && bootstrapStatus && !bootstrapStatus.enabled ? (
+            <p className="admin-login-card__notice" role="status">
+              First-administrator setup is currently disabled on the API. Temporarily
+              set ENABLE_ADMIN_BOOTSTRAP=true on the backend to use this form.
+            </p>
+          ) : null}
+
+          {bootstrapMode && bootstrapStatus?.enabled && !bootstrapStatus.configured ? (
+            <p className="admin-login-card__notice" role="status">
+              First-administrator setup is enabled, but production setup also requires
+              an ADMIN_BOOTSTRAP_SECRET of at least 16 characters.
+            </p>
+          ) : null}
+
+          {bootstrapMode && bootstrapStatusFailed ? (
+            <p className="admin-login-card__notice" role="status">
+              The bootstrap status endpoint could not be reached. The form is still
+              available, but the backend may need to be redeployed before setup works.
             </p>
           ) : null}
 
@@ -221,7 +246,7 @@ function AdminLogin() {
 
           <button
             className="admin-login-card__submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || (bootstrapMode && bootstrapStatus?.adminExists === true)}
             type="submit"
           >
             {isSubmitting
@@ -233,7 +258,7 @@ function AdminLogin() {
                 : "Sign In"}
           </button>
 
-          {bootstrapStatus?.available ? (
+          {showBootstrapOption ? (
             <button
               className="admin-login-card__bootstrap-toggle"
               type="button"
