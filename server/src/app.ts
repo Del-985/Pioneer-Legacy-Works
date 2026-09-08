@@ -22,7 +22,7 @@ app.disable("x-powered-by");
 app.set("trust proxy", 1);
 app.use(requestContext);
 app.use(helmet());
-app.use(cors({ origin: env.CLIENT_ORIGIN, credentials: true }));
+app.use(cors({ origin: env.CLIENT_ORIGINS, credentials: true }));
 app.use(express.json({ limit: "2mb" }));
 app.use("/api", apiRateLimiter);
 
