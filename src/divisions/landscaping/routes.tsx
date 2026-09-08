@@ -1,4 +1,4 @@
-import type { RouteObject } from "react-router-dom";
+import { Navigate, type RouteObject } from "react-router-dom";
 
 import Landscaping from "./Landscaping";
 import ForgotPassword from "./auth/ForgotPassword";
@@ -33,5 +33,9 @@ export const landscapingRoutes: RouteObject[] = [
       { path: "verify-email", element: <VerifyEmail /> },
       { path: "account", element: <CustomerAccount /> }
     ]
+  },
+  {
+    path: "/landscaping/*",
+    element: <Navigate to={ROUTES.divisions.landscaping.root} replace />
   }
 ];
