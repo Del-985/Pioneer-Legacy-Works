@@ -20,7 +20,11 @@ jobs:
           fetch-depth: 0
 
       - name: Remove legacy landscaping identifiers
-        run: python3 .github/cleanup-outdoor-services.py
+        shell: bash
+        run: |
+          set -euo pipefail
+          sed -i 's#"/landscaping#"/outdoor-services#g; s#label: "Landscaping"#label: "Outdoor Services"#g' src/shared/components/DebugToolbar.tsx
+          python3 .github/cleanup-outdoor-services.py
 
       - name: Install frontend dependencies
         run: npm install
