@@ -31,15 +31,20 @@
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-content page-shell">
-        <p class="eyebrow">Pioneer Legacy Works</p>
-        <h1 id="hero-title" data-brand-name>Pioneer Legacy Works</h1>
-        <p class="hero-tagline" data-site-tagline>Building practical businesses for the long term.</p>
+        <div class="hero-branding">
+          <img class="hero-logo" data-site-logo alt="" hidden>
+          <p class="eyebrow" data-hero-eyebrow>Pioneer Legacy Works</p>
+        </div>
+
+        <h1 id="hero-title" data-hero-heading>Building practical businesses for the long term.</h1>
+        <p class="hero-tagline" data-site-tagline>Dependable service. Disciplined growth. Lasting value.</p>
         <p class="hero-description" data-site-description>
-          Pioneer Legacy Works develops and supports focused operating companies built around dependable service, disciplined growth, and lasting value.
+          Pioneer Legacy Works develops and supports focused operating companies with shared systems, accountability, and long-term planning.
         </p>
+
         <div class="hero-actions">
           <a class="button button-primary" href="#companies">Explore our companies</a>
-          <a class="button button-secondary" href="#contact">Contact us</a>
+          <a class="button button-secondary" href="#contact">Contact Pioneer</a>
         </div>
       </div>
     </section>
@@ -48,14 +53,14 @@
       <div class="page-shell split-layout">
         <div>
           <p class="section-label">About</p>
-          <h2 id="about-title">One company. Multiple focused operations.</h2>
+          <h2 id="about-title" data-about-heading>One organization. Multiple focused operations.</h2>
         </div>
-        <div class="section-copy">
+        <div class="section-copy" data-about-copy>
           <p>
             Pioneer Legacy Works serves as the parent organization for businesses that operate independently while sharing a common standard for service, accountability, and long-term planning.
           </p>
           <p>
-            Each operating company is built around a clear purpose, with shared systems supporting the work behind the scenes.
+            Each operating company keeps its own customer-facing identity while shared systems support administration, technology, and growth behind the scenes.
           </p>
         </div>
       </div>
@@ -66,9 +71,9 @@
         <div class="section-heading">
           <div>
             <p class="section-label">Companies</p>
-            <h2 id="companies-title">Our operating companies</h2>
+            <h2 id="companies-title" data-companies-heading>Our operating companies</h2>
           </div>
-          <p>Focused businesses supported by shared standards, systems, and long-term planning.</p>
+          <p data-companies-description>Focused businesses supported by shared standards, systems, and long-term planning.</p>
         </div>
 
         <div class="company-grid" id="company-grid" aria-live="polite" aria-busy="true">
@@ -84,18 +89,70 @@
     </section>
 
     <section class="section" id="contact" aria-labelledby="contact-title">
-      <div class="page-shell contact-panel">
-        <div>
+      <div class="page-shell contact-layout">
+        <div class="contact-intro">
           <p class="section-label">Contact</p>
-          <h2 id="contact-title">Get in touch with Pioneer Legacy Works.</h2>
-          <p class="contact-copy">
-            For general questions or inquiries about one of our operating companies, use the contact information below.
+          <h2 id="contact-title" data-contact-heading>Tell us what you need.</h2>
+          <p class="contact-copy" data-contact-description>
+            Send a general inquiry or choose a Pioneer company and we will route your message to the right place.
           </p>
+
+          <div class="contact-details" id="contact-details">
+            <p class="contact-placeholder">Contact information will appear here when published.</p>
+          </div>
         </div>
 
-        <div class="contact-details" id="contact-details">
-          <p class="contact-placeholder">Contact information will appear here when published.</p>
-        </div>
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-heading">
+            <p class="form-kicker">Contact Pioneer</p>
+            <h3>Send a message</h3>
+            <p>Fields marked with an asterisk are required. Provide either an email address or phone number.</p>
+          </div>
+
+          <div class="form-grid">
+            <label class="form-field">
+              <span>Name *</span>
+              <input id="contact-name" name="name" type="text" autocomplete="name" maxlength="120" required>
+            </label>
+
+            <label class="form-field">
+              <span>Company</span>
+              <select id="contact-business-unit" name="businessUnitSlug">
+                <option value="">General / Pioneer Legacy Works</option>
+              </select>
+            </label>
+
+            <label class="form-field">
+              <span>Email</span>
+              <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254">
+            </label>
+
+            <label class="form-field">
+              <span>Phone</span>
+              <input id="contact-phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
+            </label>
+
+            <label class="form-field form-field-full">
+              <span>Subject</span>
+              <input id="contact-subject" name="subject" type="text" maxlength="200">
+            </label>
+
+            <label class="form-field form-field-full">
+              <span>Message *</span>
+              <textarea id="contact-message" name="message" rows="7" minlength="5" maxlength="5000" required></textarea>
+            </label>
+
+            <label class="honeypot-field" aria-hidden="true">
+              <span>Website</span>
+              <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary contact-submit" type="submit">Send message</button>
+            <p class="form-status" id="contact-form-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
       </div>
     </section>
   </main>
