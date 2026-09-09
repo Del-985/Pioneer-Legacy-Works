@@ -3,20 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pioneer Legacy Works builds and supports focused operating companies with a practical, long-term approach.">
   <title>Pioneer Legacy Works</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
 </head>
 <body>
-  <header>
+  <header class="site-header">
     <nav class="navbar" aria-label="Main navigation">
-      <a class="navbar-brand" href="index.html">Pioneer Legacy Works</a>
+      <a class="navbar-brand" href="#top" data-brand-name>Pioneer Legacy Works</a>
 
-      <ul class="navbar-nav">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+
+      <ul class="navbar-nav" id="primary-navigation">
         <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
         <li><a href="#companies">Companies</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content page-shell">
+        <p class="eyebrow">Pioneer Legacy Works</p>
+        <h1 id="hero-title" data-brand-name>Pioneer Legacy Works</h1>
+        <p class="hero-tagline" data-site-tagline>Building practical businesses for the long term.</p>
+        <p class="hero-description" data-site-description>
+          Pioneer Legacy Works develops and supports focused operating companies built around dependable service, disciplined growth, and lasting value.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#companies">Explore our companies</a>
+          <a class="button button-secondary" href="#contact">Contact us</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="page-shell split-layout">
+        <div>
+          <p class="section-label">About</p>
+          <h2 id="about-title">One company. Multiple focused operations.</h2>
+        </div>
+        <div class="section-copy">
+          <p>
+            Pioneer Legacy Works serves as the parent organization for businesses that operate independently while sharing a common standard for service, accountability, and long-term planning.
+          </p>
+          <p>
+            Each operating company is built around a clear purpose, with shared systems supporting the work behind the scenes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="companies" aria-labelledby="companies-title">
+      <div class="page-shell">
+        <div class="section-heading">
+          <div>
+            <p class="section-label">Companies</p>
+            <h2 id="companies-title">Our operating companies</h2>
+          </div>
+          <p>Focused businesses supported by shared standards, systems, and long-term planning.</p>
+        </div>
+
+        <div class="company-grid" id="company-grid" aria-live="polite" aria-busy="true">
+          <article class="company-card company-card-loading" aria-hidden="true">
+            <div class="loading-line loading-line-short"></div>
+            <div class="loading-line"></div>
+            <div class="loading-line"></div>
+          </article>
+        </div>
+
+        <p class="section-status" id="company-status" role="status"></p>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="page-shell contact-panel">
+        <div>
+          <p class="section-label">Contact</p>
+          <h2 id="contact-title">Get in touch with Pioneer Legacy Works.</h2>
+          <p class="contact-copy">
+            For general questions or inquiries about one of our operating companies, use the contact information below.
+          </p>
+        </div>
+
+        <div class="contact-details" id="contact-details">
+          <p class="contact-placeholder">Contact information will appear here when published.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-shell footer-content">
+      <p>&copy; <span id="current-year"></span> <span data-brand-name>Pioneer Legacy Works</span>.</p>
+      <p class="footer-status sr-only" id="backend-status" aria-live="polite">Connecting to Pioneer platform…</p>
+    </div>
+  </footer>
 </body>
 </html>
